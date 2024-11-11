@@ -94,85 +94,71 @@ class _EmailDataSCreen extends State<EmailDataScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Card(
-                          shape: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(20)),
-                          elevation: 10,
-                          shadowColor: Colors.black,
-                          child: SizedBox(
-                            width: size.width / 1.2,
-                            child: ReactiveTextField(
-                              onChanged: (_) => BlocProvider.of<SignUpBloc>(context)
-                                ..add(SignUpDataEvent(
-                                    name: SignUpForm.name,
-                                    surname: SignUpForm.surname)),
-                              validationMessages: {
-                                ValidationMessage.required: (error) =>
-                                'Что-то тут явно не так',
-                                ValidationMessage.email: (error) =>
-                                'Что-то тут явно не так',
-                              },
-                              style: theme.textTheme.bodySmall,
-                              cursorColor: theme.textTheme.bodySmall!.color,
-                              decoration: InputDecoration(
-                                label: Row(
-                                  children: [
-                                    Container(width: 20),
-                                    Text(widget.emailLabelText),
-                                  ],
-                                ),
-                                labelStyle: theme.textTheme.bodySmall!.copyWith(),
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20)),
+                        SizedBox(
+                          width: size.width / 1.2,
+                          child: ReactiveTextField(
+                            onChanged: (_) => BlocProvider.of<SignUpBloc>(context)
+                              ..add(SignUpDataEvent(
+                                  name: SignUpForm.name,
+                                  surname: SignUpForm.surname)),
+                            validationMessages: {
+                              ValidationMessage.required: (error) =>
+                              'Что-то тут явно не так',
+                              ValidationMessage.email: (error) =>
+                              'Что-то тут явно не так',
+                            },
+                            style: theme.textTheme.bodySmall,
+                            cursorColor: theme.textTheme.bodySmall!.color,
+                            decoration: InputDecoration(
+                              label: Row(
+                                children: [
+                                  Container(width: 20),
+                                  Text(widget.emailLabelText),
+                                ],
                               ),
-                              formControlName: 'email',
+                              labelStyle: theme.textTheme.bodySmall!.copyWith(),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
+                            formControlName: 'email',
                           ),
                         ),
                         Container(
                           height: size.height / 12,
                         ),
-                        Card(
-                          shape: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(20)),
-                          elevation: 7,
-                          shadowColor: Colors.black,
-                          child: SizedBox(
-                            width: size.width / 1.2,
-                            child: ReactiveTextField(
-                              onChanged: (_) => BlocProvider.of<SignUpBloc>(context)
-                                ..add(SignUpDataEvent(
-                                    name: SignUpForm.name,
-                                    surname: SignUpForm.surname)),
-                              validationMessages: {
-                                ValidationMessage.required: (error) =>
-                                'Что-то тут явно не так',
-                                ValidationMessage.email: (error) =>
-                                'Что-то тут явно не так',
-                              },
-                              style: theme.textTheme.bodySmall,
-                              cursorColor: theme.textTheme.bodySmall!.color,
-                              decoration: InputDecoration(
-                                label: Row(
-                                  children: [
-                                    Container(width: 20),
-                                    Text(widget.passwordLabelText),
-                                  ],
-                                ),
-                                labelStyle: theme.textTheme.bodySmall,
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20)),
+                        SizedBox(
+                          width: size.width / 1.2,
+                          child: ReactiveTextField(
+                            onChanged: (_) => BlocProvider.of<SignUpBloc>(context)
+                              ..add(SignUpDataEvent(
+                                  name: SignUpForm.name,
+                                  surname: SignUpForm.surname)),
+                            validationMessages: {
+                              ValidationMessage.required: (error) =>
+                              'Что-то тут явно не так',
+                              ValidationMessage.email: (error) =>
+                              'Что-то тут явно не так',
+                            },
+                            style: theme.textTheme.bodySmall,
+                            cursorColor: theme.textTheme.bodySmall!.color,
+                            decoration: InputDecoration(
+                              label: Row(
+                                children: [
+                                  Container(width: 20),
+                                  Text(widget.passwordLabelText),
+                                ],
                               ),
-                              formControlName: 'password',
+                              labelStyle: theme.textTheme.bodySmall,
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(20)),
                             ),
+                            formControlName: 'password',
                           ),
                         ),
 

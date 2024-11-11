@@ -1,8 +1,13 @@
+import 'package:comeet/UI/auth/end_auth.dart';
 import 'package:comeet/UI/auth/meme_screen.dart';
 import 'package:comeet/UI/auth/name_data_screen.dart';
+import 'package:comeet/UI/profile/profile_screen.dart';
+import 'package:comeet/UI/tests/back_test.dart';
+import 'package:comeet/UI/tests/test_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'auth/carousel_screen.dart';
 import 'start_screen/start_screen.dart';
 
 void main() {
@@ -24,11 +29,18 @@ class MyApp extends StatelessWidget {
         cardColor: const Color(0xff333333),
         hoverColor: const Color(0xffEFF0F6),
         dividerColor: const Color(0xffD0D0D0),
+        canvasColor: const Color(0xff4A3AFF),
+        focusColor: const Color(0xff333377),
         textTheme: TextTheme(
           bodyMedium: GoogleFonts.ubuntu(
               fontWeight: FontWeight.w500,
               fontSize: fontHeight*16,
             color: Color(0xff333333)
+          ),
+          bodyLarge: GoogleFonts.ubuntu(
+              fontWeight: FontWeight.w500,
+              fontSize: fontHeight*18,
+              color: Color(0xff333377)
           ),
           titleSmall: GoogleFonts.ubuntu(
             fontWeight: FontWeight.w700,
@@ -43,7 +55,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: MemeScreen(),
+      home: Profile(),
     );
   }
 }

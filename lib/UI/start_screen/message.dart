@@ -5,5 +5,5 @@ class ChatMessage{
 }
 
 List<ChatMessage> messages = [
-  ChatMessage(messageContent: "Привет! Я - Битя!", messageType: "receiver"),
+  ChatMessage(messageContent: "Привет! Я - Битя!", messageType: "receiver")
 ];

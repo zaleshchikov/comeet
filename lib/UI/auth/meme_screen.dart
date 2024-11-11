@@ -1,4 +1,5 @@
 import 'package:comeet/UI/animation/animation_one.dart';
+import 'package:comeet/UI/auth/carousel_screen.dart';
 import 'package:comeet/UI/start_screen/message.dart';
 import 'package:comeet/UI/start_screen/message_widget.dart';
 import 'package:comeet/UI/start_screen/swiping_screen.dart';
@@ -99,7 +100,7 @@ class _EmailDataSCreen extends State<MemeScreen> {
             Center(
                 child: InkWell(
                   onTap: () async {
-
+                    Navigator.of(context).push(SlideAnimationRoute(CarouselScreen()));
                   },
                   child: Container(
                     decoration: BoxDecoration(
