@@ -6,6 +6,8 @@ JsonContentHeaders(String token) {
 const headers = {'content-type': 'application/json'};
 final headersUrlencoded = {'content-type': 'application/x-www-form-urlencoded'};
 final headersMedial = {'content-type': 'application/x-www-form-urlencoded'};
+
+const registerURL = '$mainUrl/api/auth/register';
 const publicMedia = '$mainUrl/public_goal/set_primary_image/';
 const privateMedia = '$mainUrl/private_goal/set_primary_image/';
 const mainUrl = 'http://vladcrabserver.tplinkdns.com';

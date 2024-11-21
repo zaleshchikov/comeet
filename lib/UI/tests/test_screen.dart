@@ -23,7 +23,7 @@ class _TestScreenState extends State<TestScreen> {
         children: [
           Container(
             height: size.height, width: size.width,
-              child: TestBack(color_pink)),
+              child: TestBack(colorPinkback)),
           Container(
                   padding: EdgeInsets.only(top: size.height/20, left: size.width/20),
                   child: IconButton(

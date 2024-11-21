@@ -1,9 +1,9 @@
-import 'package:comeet/UI/profile/profile_info.dart';
+import 'package:comeet/UI/user_card/card_info.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class CardScreen extends StatelessWidget {
+  const CardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +17,12 @@ class Profile extends StatelessWidget {
           height: size.height,
           color: theme.cardColor,
         ),
-        Container(
-          padding:
-              EdgeInsets.only(top: size.height / 20, left: size.width / 20),
-          child: IconButton(
-            icon: ImageIcon(AssetImage('assets/icons/back_icon.png'),
-                size: size.height / 20),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ),
+
         Container(
           width: size.width,
           height: size.height / 2,
           decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage('assets/test_images/test1.jpeg'), fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(50), color: Colors.white),
         ),
         Padding(
@@ -63,8 +56,17 @@ class Profile extends StatelessWidget {
         ),
         Container(
           padding: EdgeInsets.only(top: size.height*0.5),
-          child: ProfileInfo(),
-        )
+          child: CardInfo(),
+        ),
+        Container(
+          padding:
+          EdgeInsets.only(top: size.height / 20, left: size.width / 20),
+          child: IconButton(
+            icon: ImageIcon(AssetImage('assets/icons/back_icon.png'),
+                size: size.height / 20),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
       ],
     );
   }
