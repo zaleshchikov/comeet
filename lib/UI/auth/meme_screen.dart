@@ -65,70 +65,70 @@ class _EmailDataSCreen extends State<MemeScreen> {
       ),
     );
 
-    return BlocProvider(
-      create: (context) => SignUpBloc(),
-      child: Builder(builder: (context) {
-        return Scaffold(
-            body: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      progressCircle(true, 1),
-                      progressContainer(1),
-                      progressCircle(true, 2),
-                      progressContainer(0),
-                      progressCircle(false, 3),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: size.width/20),
-                        padding: EdgeInsets.all(size.height/100),
-                        width: size.width/2,
-                        height: size.width/2,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          color: theme.hoverColor
-                        ),
-                        child: Center(child: Image.asset('assets/meme/meme.png')),
+    return Scaffold(
+          body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    progressCircle(true, 1),
+                    progressContainer(1),
+                    progressCircle(true, 2),
+                    progressContainer(0),
+                    progressCircle(false, 3),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: size.width/20),
+                      padding: EdgeInsets.all(size.height/100),
+                      width: size.width/2,
+                      height: size.width/2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: theme.hoverColor
                       ),
-                    ],
-                  ),
-            Center(
-                child: InkWell(
-                  onTap: () async {
-                    Navigator.of(context).push(SlideAnimationRoute(CarouselScreen()));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: theme.primaryColor,
-                        borderRadius: BorderRadius.circular(50)),
-                    height: height / 15,
-                    width: width * 0.9,
-                    child: Center(
-                      child: BlocProvider.of<SignUpBloc>(context)
-                          .state
-                          .isLoading
-                          ? Center(
-                          child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(
-                                color: theme
-                                    .textTheme.titleSmall!.color,
-                              )))
-                          : Text(
-                        ':)',
-                        style: theme.textTheme.titleSmall,
-                      ),
+                      child: Center(child: Image.asset('assets/meme/meme.png')),
+                    ),
+                  ],
+                ),
+          Center(
+              child: InkWell(
+                onTap: () async {
+                  debugPrint(BlocProvider.of<SignUpBloc>(context).state.email);
+                  debugPrint(BlocProvider.of<SignUpBloc>(context).state.password);
+                  Navigator.of(context).push(SlideAnimationRoute(BlocProvider.value(
+                      value: BlocProvider.of<SignUpBloc>(context),
+                      child:CarouselScreen())));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: theme.primaryColor,
+                      borderRadius: BorderRadius.circular(50)),
+                  height: height / 15,
+                  width: width * 0.9,
+                  child: Center(
+                    child: BlocProvider.of<SignUpBloc>(context)
+                        .state
+                        .isLoading
+                        ? Center(
+                        child: SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator(
+                              color: theme
+                                  .textTheme.titleSmall!.color,
+                            )))
+                        : Text(
+                      ':)',
+                      style: theme.textTheme.titleSmall,
                     ),
                   ),
-                ))
-                ]));
-      }),
-    );
+                ),
+              ))
+              ]));
+
   }
 }

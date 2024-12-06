@@ -1,29 +1,33 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../request_constant/request_constant.dart';
 import 'sign_up_form.dart';
 import 'package:http/http.dart' as http;
-
 part 'sign_up_event.dart';
-
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc() : super(SignUpState(email: '', password: '', isLoading: false)) {
     on<SignUpDataEvent>(_onUpdateData);
     on<SendSignUpDataEvent>(_onSendData);
+    on<SignUpDataEmailEvent>(_onUpdateDataEmail);
   }
 
   _onUpdateData(SignUpDataEvent event, Emitter<SignUpState> emit) {
     emit(SignUpState(
         email: event.name, password: event.surname, isLoading: false));
   }
-
+  _onUpdateDataEmail(SignUpDataEmailEvent event, Emitter<SignUpState> emit) {
+    emit(SignUpState(
+        email: event.email, password: event.password, isLoading: false));
+  }
   _onSendData(SendSignUpDataEvent event, Emitter<SignUpState> emit) async {
-    if (SignUpForm.form.valid) {
+
       emit(SignUpState(
           email: state.email, password: state.password, isLoading: true));
       var response = await http.post(Uri.parse(registerNewUserUrl),
@@ -31,7 +35,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           body: jsonEncode({
             "email": state.email,
             "password": state.password,
-            "username": state.email
+            "color": getRandomColor().toString()
           }));
       emit(SignUpState(email: state.email, password: state.password));
 
@@ -44,20 +48,25 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             Uri.parse(loginUrl),
             headers: headersUrlencoded,
             body: {
-              "username": state.email,
+              "email": state.email,
               "password": state.password,
             });
 
+        if(response.statusCode == 200){
+          var resBody = jsonDecode(response.body);
+          _saveToken(resBody['accessToken'], resBody['refreshToken']);
+        }
         emit(SignUpState(
             email: state.email,
             password: state.password,
             isSuccessRequest: true));
       }
-    }
-  }
-
-  _saveDataToDB(String email, String password, String token, String nickName) async {
 
   }
 
+  _saveToken(String accessToken, String refreshToken) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('accessToken', accessToken);
+    await prefs.setString('refreshToken', refreshToken);
+  }
 }

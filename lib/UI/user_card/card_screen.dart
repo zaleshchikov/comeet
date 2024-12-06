@@ -10,7 +10,10 @@ class CardScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
 
-    return Stack(
+    return PageView.builder(
+        itemCount: 100,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) => Stack(
       children: [
         Container(
           width: size.width,
@@ -22,7 +25,7 @@ class CardScreen extends StatelessWidget {
           width: size.width,
           height: size.height / 2,
           decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage('assets/test_images/test1.jpeg'), fit: BoxFit.fill),
+            image: DecorationImage(image: AssetImage('assets/test_images/test1.jpeg'), fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(50), color: Colors.white),
         ),
         Padding(
@@ -68,6 +71,6 @@ class CardScreen extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ));
   }
 }

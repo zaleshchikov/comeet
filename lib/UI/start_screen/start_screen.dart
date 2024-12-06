@@ -2,7 +2,8 @@ import 'package:comeet/UI/animation/animation_one.dart';
 import 'package:comeet/UI/auth/name_data_screen.dart';
 import 'package:comeet/UI/start_screen/swiping_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bloc/sign_up/sign_up_bloc.dart';
 import 'dialog.dart';
 import 'message.dart';
 
@@ -31,8 +32,6 @@ class _StartScreenState extends State<StartScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
-
-
 
     return Scaffold(
         body:
@@ -90,7 +89,10 @@ class _StartScreenState extends State<StartScreen> {
           child: InkWell(
         onTap: () async {
           if (widget.secondWay) {
-            Navigator.of(context).push(SlideAnimationRoute(SignUpScreen()));
+            Navigator.of(context).push(SlideAnimationRoute(BlocProvider(
+              create: (BuildContext context) => SignUpBloc(),
+              child: SignUpScreen(),
+            )));
             return;
           }
           if (widget.messageIndex != 3) {

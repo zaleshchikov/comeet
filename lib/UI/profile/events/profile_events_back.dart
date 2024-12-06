@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class EventBack extends StatelessWidget {
+class ProfileEventBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

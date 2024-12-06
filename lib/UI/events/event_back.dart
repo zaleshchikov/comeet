@@ -1,8 +1,8 @@
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 
-class ProfileBack extends StatelessWidget {
-  const ProfileBack({super.key});
+class EventBack extends StatelessWidget {
+  const EventBack({super.key});
 
 
   @override
@@ -20,9 +20,9 @@ class ProfileBack extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               clipper: ChevronTop(),
               child: Container(
-                color: theme.cardColor,
+                color: profileBackBottomColor,
                 width: size.width,
-                height: size.height / 3,
+                height: size.height / 2,
               ),
             ),
             ClipPath(
@@ -31,7 +31,7 @@ class ProfileBack extends StatelessWidget {
               child: Container(
                 color: profileBackBottomColor,
                 width: size.width,
-                height: size.height / 4,
+                height: size.height / 2,
               ),
             ),
           ],
@@ -44,21 +44,23 @@ class ProfileBack extends StatelessWidget {
 class ChevronTop extends CustomClipper<Path> {
   @override
   getClip(Size size) {
-    var controlPoint1 = Offset(size.width * 0.1, size.height * 0.9);
-    var controlPoint2 = Offset(size.width * 0.2, size.height * 0.95);
-    var endPoint = Offset(size.width * 0.4, size.height * 0.75);
+    var controlPoint1 = Offset(size.width, size.height * 0.4);
+    var controlPoint2 = Offset(size.width * 0.9, size.height * 0.4);
+    var endPoint = Offset(size.width*0.8, size.height * 0.4);
 
-    var controlPoint12 = Offset(size.width * 0.4, size.height * 0.75);
-    var controlPoint22 = Offset(size.width * 0.6, size.height*0.55);
-    var endPoint2 = Offset(size.width*0.7, size.height * 0.75);
+    var controlPoint12 = Offset(size.width * 0.8, size.height * 0.4);
+    var controlPoint22 = Offset(size.width * 0.7, size.height * 0.4);
+    var endPoint2 = Offset(size.width * 0.6, size.height * 0.3);
 
-    var controlPoint13 = Offset(size.width * 0.7, size.height * 0.75);
-    var controlPoint23 = Offset(size.width * 0.8, size.height * 0.95);
-    var endPoint3 = Offset(size.width, size.height * 0.75);
+    var controlPoint13 = Offset(size.width * 0.6, size.height * 0.3);
+    var controlPoint23 = Offset(size.width * 0.4, size.height * 0.1);
+    var endPoint3 = Offset(0, size.height * 0.4);
 
     Path path = Path();
-    path.moveTo(0, 0);
-    path.lineTo(0, size.height * 0.6);
+    path.moveTo(0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, size.height*0.5);
+
     path.cubicTo(controlPoint1.dx, controlPoint1.dy, controlPoint2.dx,
         controlPoint2.dy, endPoint.dx, endPoint.dy);
 
@@ -68,8 +70,7 @@ class ChevronTop extends CustomClipper<Path> {
     path.cubicTo(controlPoint13.dx, controlPoint13.dy, controlPoint23.dx,
         controlPoint23.dy, endPoint3.dx, endPoint3.dy);
 
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
     path.close();
     return path;
   }
@@ -80,27 +81,24 @@ class ChevronTop extends CustomClipper<Path> {
   }
 }
 
-
 class ChevronBottom extends CustomClipper<Path> {
   @override
   getClip(Size size) {
-    var controlPoint1 = Offset(size.width * 0.8, 0);
-    var controlPoint2 = Offset(size.width * 0.7, size.height * 0.3);
-    var endPoint = Offset(size.width * 0.6, size.height * 0.4);
+    var controlPoint1 = Offset(size.width * 0.1, size.height * 0.8);
+    var controlPoint2 = Offset(size.width * 0.4, size.height * 0.85);
+    var endPoint = Offset(size.width * 0.6, size.height * 0.7);
 
-    var controlPoint12 = Offset(size.width * 0.60, size.height * 0.4);
-    var controlPoint22 = Offset(size.width * 0.5, size.height * 0.5);
-    var endPoint2 = Offset(size.width * 0.3, size.height * 0.4);
+    var controlPoint12 = Offset(size.width * 0.6, size.height * 0.7);
+    var controlPoint22 = Offset(size.width * 0.7, size.height*0.65);
+    var endPoint2 = Offset(size.width*0.8, size.height * 0.65);
 
-    var controlPoint13 = Offset(size.width * 0.3, size.height * 0.4);
-    var controlPoint23 = Offset(size.width * 0.10, size.height * 0.3);
-    var endPoint3 = Offset(0, size.height * 0.4);
+    var controlPoint13 = Offset(size.width * 0.8, size.height * 0.65);
+    var controlPoint23 = Offset(size.width * 0.9, size.height * 0.65);
+    var endPoint3 = Offset(size.width, size.height * 0.6);
 
     Path path = Path();
-    path.moveTo(0, size.height * 0.3);
-    path.lineTo(0, size.height);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, size.height * 0.2);
+    path.moveTo(0, 0);
+    path.lineTo(0, size.height*0.5);
     path.cubicTo(controlPoint1.dx, controlPoint1.dy, controlPoint2.dx,
         controlPoint2.dy, endPoint.dx, endPoint.dy);
 
@@ -110,7 +108,8 @@ class ChevronBottom extends CustomClipper<Path> {
     path.cubicTo(controlPoint13.dx, controlPoint13.dy, controlPoint23.dx,
         controlPoint23.dy, endPoint3.dx, endPoint3.dy);
 
-    path.lineTo(0, size.height * 0.3);
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
     path.close();
     return path;
   }

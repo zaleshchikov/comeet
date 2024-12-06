@@ -1,10 +1,11 @@
-import 'package:comeet/UI/events/event.dart';
-import 'package:comeet/UI/events/events_back.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class EventsScreen extends StatelessWidget {
+import 'profile_event.dart';
+import 'profile_events_back.dart';
+
+class ProfileEventsScreen extends StatelessWidget {
   static final form = FormGroup({
     'text': FormControl<String>(validators: [Validators.required]),
   });
@@ -22,7 +23,7 @@ class EventsScreen extends StatelessWidget {
         formGroup: form,
         child: Stack(
           children: [
-            EventBack(),
+            ProfileEventBack(),
             ListView(
                 children: List<Widget>.generate(
                     5,
@@ -59,7 +60,7 @@ class EventsScreen extends StatelessWidget {
                           )
                         : Container(
                             padding: EdgeInsets.all(size.width * 0.1),
-                            child: EventItem(
+                            child: ProfileEventItem(
                                 colorPink, colorPinkTitle, 'test name')))),
             Container(
               alignment: Alignment.topLeft,

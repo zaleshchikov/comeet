@@ -98,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: size.width / 1.2,
                       child: ReactiveTextField(
                         onChanged: (_) => BlocProvider.of<SignUpBloc>(context)
-                          ..add(SignUpDataEvent(
+                          .add(SignUpDataEvent(
                               name: SignUpForm.name,
                               surname: SignUpForm.surname)),
                         validationMessages: {
@@ -172,7 +172,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: InkWell(
                             onTap: () async {
                                if(form.valid){
-                                 Navigator.of(context).push(SlideAnimationRoute(EmailDataScreen()));
+                                 Navigator.of(context).push(SlideAnimationRoute(
+                                     BlocProvider.value(
+                                         value: BlocProvider.of<SignUpBloc>(context),
+                                         child:
+                                         EmailDataScreen())
+                                 ));
                                } else{
                                  form.control('name').markAllAsTouched();
                                  form.control('surname').markAllAsTouched();

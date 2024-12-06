@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class EventItem extends StatelessWidget {
+class ProfileEventItem extends StatelessWidget {
   Color color;
   Color titleColor;
   String name;
 
-  EventItem(this.color, this.titleColor, this.name);
+  ProfileEventItem(this.color, this.titleColor, this.name);
 
   @override
   Widget build(BuildContext context) {

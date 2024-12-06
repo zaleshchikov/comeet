@@ -83,7 +83,7 @@ class FriendsCards extends StatelessWidget {
                               image: DecorationImage(
                                   image:
                                   AssetImage(friends[index].photo),
-                                  fit: BoxFit.fill)),
+                                  fit: BoxFit.cover)),
                         ),
                         Container(
                           width: size.width / 4,

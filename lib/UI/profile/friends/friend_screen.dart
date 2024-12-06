@@ -1,10 +1,10 @@
-import 'package:comeet/UI/events/event.dart';
-import 'package:comeet/UI/events/events_back.dart';
 import 'package:comeet/UI/profile/friends/friend_list.dart';
 import 'package:comeet/UI/profile/friends/friends_card.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+
+import '../events/profile_events_back.dart';
 
 class FriendScreen extends StatelessWidget {
   static final form = FormGroup({
@@ -24,7 +24,7 @@ class FriendScreen extends StatelessWidget {
             formGroup: form,
             child: Stack(
               children: [
-                EventBack(),
+                ProfileEventBack(),
                 Container(
                   height: size.height,
                   width: size.width,

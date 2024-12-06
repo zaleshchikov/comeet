@@ -2,6 +2,7 @@ part of 'sign_up_bloc.dart';
 
 @immutable
 class SignUpState {
+
   final String email;
   final String password;
   final bool isLoading;

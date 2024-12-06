@@ -39,7 +39,7 @@ class FriendList extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
                               image: AssetImage(friends[index].photo),
-                              fit: BoxFit.fill)),
+                              fit: BoxFit.cover)),
                     ),
                   ))),
     );

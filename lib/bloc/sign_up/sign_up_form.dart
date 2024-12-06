@@ -16,6 +16,7 @@ class SignUpForm {
   });
 
   static String get name => form.control('name').value ?? 'name null';
-
   static String get surname => form.control('surname').value ?? 'surname null';
+  static String get email => emailForm.control('email').value ?? 'email null';
+  static String get password => emailForm.control('password').value ?? 'password null';
 }
