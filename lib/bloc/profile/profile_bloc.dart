@@ -15,7 +15,7 @@ part 'profile_state.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc()
       : super(ProfileState(
-            User('', '', 'assets/test_images/test1.jpeg', '', 0))) {
+            User('', '', 'assets/test_images/test1.jpeg', '', '0'))) {
     on<GetProfileData>(_onGetData);
   }
 }
@@ -31,7 +31,7 @@ _onGetData(GetProfileData event, Emitter<ProfileState> emit) async {
   
   if(response.statusCode == 200){
     var rBody = jsonDecode(response.body);
-    emit(ProfileState(User(rBody['name']??'Добавьте имя', rBody['description']??'Добавьте описание', rBody['image']??'assets/test_images/test1.jpeg', rBody['profession']??'Добавьте профессию', 0)));
+    emit(ProfileState(User(rBody['name']??'Добавьте имя', rBody['description']??'Добавьте описание', rBody['image']??'assets/test_images/test1.jpeg', rBody['profession']??'Добавьте профессию', '0')));
   }
   debugPrint(response.body);
 

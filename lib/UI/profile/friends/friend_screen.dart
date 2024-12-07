@@ -2,8 +2,10 @@ import 'package:comeet/UI/profile/friends/friend_list.dart';
 import 'package:comeet/UI/profile/friends/friends_card.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../bloc/card/card_bloc.dart';
 import '../events/profile_events_back.dart';
 
 class FriendScreen extends StatelessWidget {
@@ -15,7 +17,13 @@ class FriendScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
 
-    return Scaffold(
+    return BlocProvider(
+        create: (context) => CardBloc()..add(GetCards()),
+        child: Builder(
+        builder: (context) {
+      return BlocBuilder<CardBloc, CardState>(
+          builder: (context, state) {
+        return Scaffold(
       resizeToAvoidBottomInset: false,
         body: Container(
           height: size.height,
@@ -49,6 +57,9 @@ class FriendScreen extends StatelessWidget {
                         width: size.width*0.9,
                         height: size.height/15,
                         child: ReactiveTextField(
+                          onChanged: (_){
+                            BlocProvider.of<CardBloc>(context).add(SearchCard(form.control('text').value ?? ''));
+                          },
                           style: theme.textTheme.bodySmall,
                           cursorColor: theme.textTheme.bodySmall!.color,
                           decoration: InputDecoration(
@@ -66,7 +77,7 @@ class FriendScreen extends StatelessWidget {
                           formControlName: 'text',
                         ),
                       ),
-                      FriendsCards(),
+                      FriendsCards(state.cards),
                       Container(
                         height: size.height / 15,
                       ),
@@ -77,5 +88,5 @@ class FriendScreen extends StatelessWidget {
             ),
           ),
         ));
-  }
-}
+  });}));
+}}

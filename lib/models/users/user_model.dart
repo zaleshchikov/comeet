@@ -1,9 +1,30 @@
+import 'dart:convert';
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
 class User{
   String name;
   String description;
   String photo;
   String profession;
-  int id;
+  String id;
+  Color color;
 
-  User(this.name, this.description, this.photo, this.profession, this.id);
+  User(this.name, this.description, this.photo, this.profession, this.id,
+      {this.color = Colors.white});
+
+  static User fromJsom(data){
+    return User(data['name'] ?? 'Работяга без имени', data['description'] ?? 'Работяга без описания', 'assets/test_images/test1.jpeg', data['profession'] ?? 'Работяга', data['id'] ?? '');
+  }
+
+  static List<User> getEventsFromJson(String jsonData){
+    var data = jsonDecode(jsonData);
+    List<User> returnedData = [];
+    for(var i in data){
+      returnedData.add(User.fromJsom(i));
+    }
+
+    return returnedData;
+  }
 }

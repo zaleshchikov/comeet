@@ -20,7 +20,14 @@ import 'start_screen/start_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   SharedPreferences pref = await SharedPreferences.getInstance();
+  if(pref.getString('accessToken') == null) {
+    await pref.setString('accessToken',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpYXQiOjE3MzM1OTA2NjQsImV4cCI6MTczMzU5MDk2NH0.ec2ztHmFYHVdIu2K4Tf53M7AL90a-OwAshS4ugTsbpI');
+    await pref.setString('refreshToken',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjJhNThmNGYwLTYzNDYtNDA2MC1hMGIzLWY5YTNmNmVhYmM4MyIsImlhdCI6MTczMzU5MDY2NCwiZXhwIjoxNzM4Nzc0NjY0fQ.-nEUerfJATHLLOw1oLfKk9bE4zyivooyEFfayBHCqSM');
+  }
   var startWidget = pref.getString('accessToken') == null
       ? StartScreen()
       : BottomNavigationScreen(ProfileScreen());

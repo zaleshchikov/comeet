@@ -37,6 +37,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             "password": state.password,
             "color": getRandomColor().toString()
           }));
+
       emit(SignUpState(email: state.email, password: state.password));
 
       debugPrint('email: ${state.email}');

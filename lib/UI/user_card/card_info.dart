@@ -1,8 +1,14 @@
 import 'package:comeet/UI/user_card/card_progress_containers.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/users/user_model.dart';
+
 class CardInfo extends StatelessWidget {
-  const CardInfo({super.key});
+
+  User card;
+
+  CardInfo(this.card);
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,9 @@ class CardInfo extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(textAlign: TextAlign.center, 'Всем привет, это описание моего аккаунта. Я что-то тут напишу, потому что фронтендеру нужно  показать, как это все должно  выглядеть.', style: theme.textTheme.bodyLarge!.copyWith(color: Colors.white)),
+          Text(textAlign: TextAlign.left, card.name, style: theme.textTheme.titleSmall!.copyWith(color: Colors.white)),
+
+          Text(textAlign: TextAlign.center, card.description, style: theme.textTheme.bodyLarge!.copyWith(color: Colors.white)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

@@ -7,19 +7,17 @@ import '../../../models/users/friend_model.dart';
 import '../../../request_constant/colors.dart';
 
 class EventCards extends StatefulWidget {
+
+  List<Event> events;
+
+  EventCards(this.events);
+
   @override
   State<EventCards> createState() => _EventCardsState();
 }
 
 class _EventCardsState extends State<EventCards> {
-  var events = [
-    Event('Рыбалка', 'собираемся  с ребятами расслабиться и поймать рыбку',
-        DateTime.now(), false, [], 'assets/test_images/test1.jpeg', colorBlue),
-    Event('Рыбалка', 'собираемся  с ребятами расслабиться и поймать рыбку',
-        DateTime.now(), false, [], '', colorPink),
-    Event('Рыбалка', 'собираемся  с ребятами расслабиться и поймать рыбку',
-        DateTime.now(), false, [], 'assets/test_images/test1.jpeg', greenColor),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class _EventCardsState extends State<EventCards> {
         width: size.width,
         child: ListView.builder(
             padding: EdgeInsets.zero,
-            itemCount: events.length,
+            itemCount: widget.events.length,
             itemBuilder: (context, index) => InkWell(
                   onTap: () {
                     showBottomSheet(
@@ -45,7 +43,7 @@ class _EventCardsState extends State<EventCards> {
                   },
                   child: Container(
                     height: size.height / 6,
-                    width: size.width * 0.8,
+                    width: size.width,
                     padding: EdgeInsets.only(
                         bottom: size.height / 50,
                         right: size.width * 0.07,
@@ -53,12 +51,12 @@ class _EventCardsState extends State<EventCards> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
-                          color: events[index].color),
+                          color: widget.events[index].color),
                       padding: EdgeInsets.all(size.height / 200),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          events[index].photo == ""
+                          widget.events[index].photo == ""
                               ? Container(
                                   height: size.width / 4,
                                   width: size.width / 4,
@@ -77,11 +75,11 @@ class _EventCardsState extends State<EventCards> {
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                           image:
-                                              AssetImage(events[index].photo),
+                                              AssetImage(widget.events[index].photo),
                                           fit: BoxFit.cover)),
                                 ),
                           Container(
-                            width: size.width / 4,
+                            width: size.width / 3,
                             padding: EdgeInsets.symmetric(
                                 vertical: size.height / 100),
                             child: Column(
@@ -92,7 +90,7 @@ class _EventCardsState extends State<EventCards> {
                                   children: [
                                     Container(
                                       width: size.width / 4,
-                                      child: Text(events[index].name,
+                                      child: Text(widget.events[index].name,
                                           textAlign: TextAlign.center,
                                           style: theme.textTheme.bodyMedium!
                                               .copyWith(
@@ -104,9 +102,10 @@ class _EventCardsState extends State<EventCards> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                        width: size.width / 4,
+                                        width: size.width / 3,
                                         child: Text(
-                                          events[index].description,
+                                          widget.events[index].description,
+                                          overflow: TextOverflow.fade,
                                           textAlign: TextAlign.left,
                                           style: theme.textTheme.labelMedium!
                                               .copyWith(
@@ -121,13 +120,13 @@ class _EventCardsState extends State<EventCards> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                events[index].isLiked = !events[index].isLiked;
+                                widget.events[index].isLiked = !widget.events[index].isLiked;
                               });
                             },
                             child: Container(
-                              width: size.width / 5,
+                              width: size.width / 10,
                               child: Center(
-                                child: events[index].isLiked
+                                child: widget.events[index].isLiked
                                     ? Icon(Icons.favorite,
                                         color: colorPinkTitle)
                                     : Icon(Icons.favorite_border_outlined,
