@@ -72,8 +72,22 @@ class EventsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      EventCards(state.events),
-                      Container(height: size.height / 100)
+                      state.isLoading ? Container(
+                        height: size.height/2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: size.height/20,
+                              width: size.height/20,
+                              child: CircularProgressIndicator(
+                                color: theme.cardColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ) : EventCards(state.events),
+                      Container(height: size.height / 20)
                     ],
                   )
                 ],

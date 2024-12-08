@@ -17,6 +17,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
       : super(EventState(
             events: [])) {
     on<GetEvents>(_getEvents);
+    on<GetMyEvent>(_getMyEvents);
   }
 
   _getEvents(GetEvents event, Emitter<EventState> emit) async {
@@ -32,8 +33,12 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     );
 
     if (response.statusCode == 200){
+
       emit(EventState(events: Event.getEventsFromJson(response.body)));
     }
+    emit(EventState(
+        events: state.events,
+        isLoading: false));
     debugPrint(response.body);
   }
 

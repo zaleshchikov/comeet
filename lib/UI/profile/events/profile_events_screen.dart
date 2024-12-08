@@ -14,83 +14,92 @@ class ProfileEventsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery
-        .of(context)
-        .size;
+    var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
 
     return BlocProvider(
       create: (context) => EventBloc()..add(GetMyEvent()),
-      child: Builder(
-        builder: (context) {
-          return BlocBuilder<EventBloc, EventState>(
-  builder: (context, state) {
-    return Scaffold(
-              body: Container(
-                height: size.height,
-                width: size.width,
-                child: ReactiveForm(
-                  formGroup: form,
-                  child: Stack(
-                    children: [
-                      ProfileEventBack(),
-                      ListView(
-                          children: List<Widget>.generate(
-                              state.events.length,
-                                  (index) =>
-                              index == 0
-                                  ? Container(
-                                padding: EdgeInsets.only(
-                                    top: size.width * 0.2,
-                                    left: size.width * 0.1,
-                                    right: size.width * 0.1),
-                                child: ReactiveTextField(
-                                  style: theme.textTheme.bodySmall,
-                                  cursorColor: theme.textTheme.bodySmall!.color,
-                                  decoration: InputDecoration(
-                                    label: Row(
-                                      children: [
-                                        Container(width: 20),
-                                        Text(''),
-                                      ],
-                                    ),
-                                    suffixIcon: Icon(
-                                      Icons.search,
-                                      size: size.height / 20,
-                                    ),
-                                    labelStyle:
-                                    theme.textTheme.bodySmall!.copyWith(),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                        borderRadius: BorderRadius.circular(20)),
-                                  ),
-                                  formControlName: 'text',
-                                ),
-                              )
-                                  : Container(
-                                  padding: EdgeInsets.all(size.width * 0.1),
-                                  child: ProfileEventItem(
-                                      state.events[index].color, colorPinkTitle, state.events[index].name)))),
-                      Container(
-                        alignment: Alignment.topLeft,
-                        padding: EdgeInsets.only(
-                            top: size.height / 17, left: size.height / 100),
-                        child: IconButton(
-                          icon: ImageIcon(AssetImage('assets/icons/back_icon.png'),
-                              size: size.height / 20),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
+      child: Builder(builder: (context) {
+        return BlocBuilder<EventBloc, EventState>(
+          builder: (context, state) {
+            return Scaffold(
+                body: Container(
+              height: size.height,
+              width: size.width,
+              child: ReactiveForm(
+                formGroup: form,
+                child: Stack(
+                  children: [
+                    ProfileEventBack(),
+                    state.events.length == 0
+                        ? Container(
+                      padding: EdgeInsets.all(size.height/50),
+                          child: Center(
+                              child: Text(
+                                  'Вы пока не записались ни на одно мероприятие...', style: theme.textTheme.titleLarge, textAlign: TextAlign.center,)),
+                        )
+                        : ListView(
+                            children: List<Widget>.generate(
+                                state.events.length,
+                                (index) => index == 0
+                                    ? Container(
+                                        padding: EdgeInsets.only(
+                                            top: size.width * 0.2,
+                                            left: size.width * 0.1,
+                                            right: size.width * 0.1),
+                                        child: ReactiveTextField(
+                                          style: theme.textTheme.bodySmall,
+                                          cursorColor:
+                                              theme.textTheme.bodySmall!.color,
+                                          decoration: InputDecoration(
+                                            label: Row(
+                                              children: [
+                                                Container(width: 20),
+                                                Text(''),
+                                              ],
+                                            ),
+                                            suffixIcon: Icon(
+                                              Icons.search,
+                                              size: size.height / 20,
+                                            ),
+                                            labelStyle: theme
+                                                .textTheme.bodySmall!
+                                                .copyWith(),
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            border: OutlineInputBorder(
+                                                borderSide: BorderSide.none,
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                          ),
+                                          formControlName: 'text',
+                                        ),
+                                      )
+                                    : Container(
+                                        padding:
+                                            EdgeInsets.all(size.width * 0.1),
+                                        child: ProfileEventItem(
+                                            state.events[index].color,
+                                            colorPinkTitle,
+                                            state.events[index].name)))),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      padding: EdgeInsets.only(
+                          top: size.height / 17, left: size.height / 100),
+                      child: IconButton(
+                        icon: ImageIcon(
+                            AssetImage('assets/icons/back_icon.png'),
+                            size: size.height / 20),
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ));
-  },
-);
-        }
-      ),
+              ),
+            ));
+          },
+        );
+      }),
     );
   }
 }

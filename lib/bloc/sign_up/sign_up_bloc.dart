@@ -12,7 +12,7 @@ part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  SignUpBloc() : super(SignUpState(email: '', password: '', isLoading: false)) {
+  SignUpBloc() : super(SignUpState(email: '', password: '', isLoading: false, name: '', profession: '')) {
     on<SignUpDataEvent>(_onUpdateData);
     on<SendSignUpDataEvent>(_onSendData);
     on<SignUpDataEmailEvent>(_onUpdateDataEmail);
@@ -20,15 +20,16 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   _onUpdateData(SignUpDataEvent event, Emitter<SignUpState> emit) {
     emit(SignUpState(
-        email: event.name, password: event.surname, isLoading: false));
+        name: event.name, profession: event.profession, email: state.email, password: state.password, isLoading: false));
   }
   _onUpdateDataEmail(SignUpDataEmailEvent event, Emitter<SignUpState> emit) {
-    emit(SignUpState(
+    emit(SignUpState(name: state.name, profession: state.profession,
         email: event.email, password: event.password, isLoading: false));
   }
   _onSendData(SendSignUpDataEvent event, Emitter<SignUpState> emit) async {
 
       emit(SignUpState(
+        name: state.name, profession: state.profession,
           email: state.email, password: state.password, isLoading: true));
       var response = await http.post(Uri.parse(registerNewUserUrl),
           headers: headers,
@@ -38,7 +39,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             "color": getRandomColor().toString()
           }));
 
-      emit(SignUpState(email: state.email, password: state.password));
+      emit(SignUpState(name: state.name, profession: state.profession,email: state.email, password: state.password));
 
       debugPrint('email: ${state.email}');
       debugPrint('password: ${state.password}');
@@ -51,13 +52,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             body: {
               "email": state.email,
               "password": state.password,
+              "profession": state.profession,
+              "name": state.name
             });
 
         if(response.statusCode == 200){
           var resBody = jsonDecode(response.body);
           _saveToken(resBody['accessToken'], resBody['refreshToken']);
+          var response2 = await http
+              .patch(Uri.parse(profile), headers: JsonContentHeaders(resBody['accessToken']), body: {
+            "name": state.name,
+            "profession": state.profession,
+          });
         }
-        emit(SignUpState(
+        emit(SignUpState(name: state.name, profession: state.profession,
             email: state.email,
             password: state.password,
             isSuccessRequest: true));

@@ -7,9 +7,9 @@ class SignUpEvent {
 
 class SignUpDataEvent extends SignUpEvent{
   final String name;
-  final String surname;
+  final String profession;
 
-  SignUpDataEvent({required this.name, required this.surname});
+  SignUpDataEvent({required this.name, required this.profession});
 }
 
 class SendSignUpDataEvent extends SignUpEvent{

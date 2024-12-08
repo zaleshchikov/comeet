@@ -52,7 +52,7 @@ class FriendScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      FriendList(),
+                       FriendList(),
                       Container(
                         width: size.width*0.9,
                         height: size.height/15,
@@ -77,7 +77,21 @@ class FriendScreen extends StatelessWidget {
                           formControlName: 'text',
                         ),
                       ),
-                      FriendsCards(state.cards),
+                      state.isLoading ? Container(
+                        height: size.height / 2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: size.height/20,
+                              width: size.height/20,
+                              child: CircularProgressIndicator(
+                                color: theme.cardColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ) : FriendsCards(state.cards),
                       Container(
                         height: size.height / 15,
                       ),

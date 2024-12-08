@@ -12,12 +12,11 @@ part 'friend_state.dart';
 
 class FriendBloc extends Bloc<FriendEvent, FriendState> {
   FriendBloc() : super(FriendState([])) {
-    on<FriendEvent>((event, emit) {
-
-    });
+    on<GetFriends>(_onGetData);
   }
 
   _onGetData(GetFriends event, Emitter<FriendState> emit) async {
+    emit(FriendState(state.friends, isLoading: true));
     var utoken = await updateToken();
     var token = await getToken();
 
@@ -29,6 +28,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     if(response.statusCode == 200){
       emit(FriendState(Friend.friendsFromUser(User.getEventsFromJson(response.body))));
     }
+    emit(FriendState(state.friends, isLoading: false));
 
     debugPrint(response.body);
 

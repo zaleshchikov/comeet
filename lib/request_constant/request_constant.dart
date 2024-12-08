@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,15 @@ Future<void> updateToken() async {
     debugPrint(response.body);
 }
 
+Color getColorFromString(String color){
+    return getRandomColor();
+
+  String valueString = color.split('(0x')[1].split(')')[0]; // kind of hacky..
+  int value = int.parse(valueString, radix: 16);
+  Color otherColor = Color(value);
+  return otherColor;
+}
+
 Future<String> getToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString('accessToken') ?? '';
@@ -37,6 +47,8 @@ const headers = {'content-type': 'application/json'};
 final headersUrlencoded = {'content-type': 'application/x-www-form-urlencoded'};
 final headersMedial = {'content-type': 'application/x-www-form-urlencoded'};
 const myProfile = '$mainUrl/api/user/me';
+const profile = '$mainUrl/api/user';
+
 const findUser = '$mainUrl/api/user/find';
 const friendURL = '$mainUrl/api/user/friends';
 const registerURL = '$mainUrl/api/auth/register';

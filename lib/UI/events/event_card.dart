@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:comeet/UI/events/event_bottom_sheet.dart';
 import 'package:comeet/models/events/event_model.dart';
@@ -25,7 +27,7 @@ class _EventCardsState extends State<EventCards> {
     var size = MediaQuery.of(context).size;
 
     return Container(
-        height: size.height / 1.5,
+        height: size.height / 2,
         width: size.width,
         child: ListView.builder(
             padding: EdgeInsets.zero,
@@ -75,7 +77,7 @@ class _EventCardsState extends State<EventCards> {
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                           image:
-                                              AssetImage(widget.events[index].photo),
+                                              MemoryImage(base64Decode(widget.events[index].photo)),
                                           fit: BoxFit.cover)),
                                 ),
                           Container(

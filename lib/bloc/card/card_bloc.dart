@@ -16,6 +16,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   }
 
   _onGetData(GetCards event, Emitter<CardState> emit) async {
+    emit(CardState(state.cards, isLoading: true));
     var utoken = await updateToken();
     var token = await getToken();
 
@@ -28,6 +29,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       emit(CardState(User.getEventsFromJson(response.body)));
     }
     debugPrint(response.body);
+    emit(CardState(state.cards, isLoading: false));
+
   }
 
   _onUpdateData(SearchCard event, Emitter<CardState> emit) async {

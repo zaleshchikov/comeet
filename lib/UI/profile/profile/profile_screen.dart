@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:comeet/UI/animation/animation_one.dart';
 import 'package:comeet/UI/navigation/botoom_navigation.dart';
 import 'package:comeet/UI/profile/friends/friend_screen.dart';
+import 'package:comeet/UI/profile/profile/edit_profile/edit_profile_screen.dart';
 import 'package:comeet/UI/profile/profile/profile_back.dart';
 import 'package:comeet/UI/profile/profile/test_grid/test_grid.dart';
 import 'package:comeet/bloc/profile/profile_bloc.dart';
@@ -43,15 +46,30 @@ class ProfileScreen extends StatelessWidget {
                             height: size.height / 30,
                           ),
                           Container(
-                            width: size.width * 0.8,
+                            width: size.width * 0.85,
                             child: Row(
                               children: [
                                 Column(
                                   children: [
-                                    Container(
-                                        width: size.width * 0.8,
-                                        child:
-                                            Text(state.profile.name, style: theme.textTheme.titleSmall)),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                            width: size.width * 0.7,
+                                            child:
+                                                Text(state.profile.name, style: theme.textTheme.titleSmall)),
+                                        InkWell(
+                                          onTap: (){
+                                            Navigator.of(context).push(SlideAnimationRoute(EditProfileSCreen(state.profile)));
+                                          },
+                                          child: Container(
+                                            height: size.height/20,
+                                            width: size.height/20,
+                                            child: Image.asset('assets/icons/edit.png', fit: BoxFit.contain,),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                     Container(
                                       width: size.width * 0.8,
                                       child: Text(state.profile.profession,
@@ -63,7 +81,21 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
+                         state.isLoading ? Container(
+                           height: size.width * 0.85,
+                           child: Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                               SizedBox(
+                                 height: size.height/20,
+                                 width: size.height/20,
+                                 child: CircularProgressIndicator(
+                                   color: theme.cardColor,
+                                 ),
+                               ),
+                             ],
+                           ),
+                         ) : Container(
                             height: size.width * 0.85,
                             width: size.width * 0.8,
                             padding: EdgeInsets.all(size.height / 100),
@@ -74,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   image: DecorationImage(
-                                      image: AssetImage('assets/test_images/test1.jpeg'),
+                                      image: state.profile.photo == "" ? AssetImage('assets/test_images/test1.jpeg') : MemoryImage(base64Decode(state.profile.photo)),
                                       fit: BoxFit.cover)),
                             ),
                           ),

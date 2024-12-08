@@ -14,24 +14,29 @@ import 'package:comeet/UI/user_card/card_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-import 'auth/carousel_screen.dart';
-import 'start_screen/start_screen.dart';
+import 'request_constant/request_constant.dart';
+import 'UI/auth/carousel_screen.dart';
+import 'UI/start_screen/start_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences pref = await SharedPreferences.getInstance();
-  if(pref.getString('accessToken') == null) {
-    await pref.setString('accessToken',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpYXQiOjE3MzM1OTA2NjQsImV4cCI6MTczMzU5MDk2NH0.ec2ztHmFYHVdIu2K4Tf53M7AL90a-OwAshS4ugTsbpI');
-    await pref.setString('refreshToken',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjJhNThmNGYwLTYzNDYtNDA2MC1hMGIzLWY5YTNmNmVhYmM4MyIsImlhdCI6MTczMzU5MDY2NCwiZXhwIjoxNzM4Nzc0NjY0fQ.-nEUerfJATHLLOw1oLfKk9bE4zyivooyEFfayBHCqSM');
-  }
+  // if(pref.getString('accessToken') == null) {
+  //   await pref.setString('accessToken',
+  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpYXQiOjE3MzM2NjIzMzgsImV4cCI6MTczMzY2MjYzOH0.nMQ_WiZ7AmCu382E3VHsV4LxFheUfKuZPh2F5wAusNw');
+  //   await pref.setString('refreshToken',
+  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjhhMjBjMThkLTkxNzAtNDFjOS1hNmNhLTMyOGE4MjU1NmJkMSIsImlhdCI6MTczMzY3NDc5OCwiZXhwIjoxNzM4ODU4Nzk4fQ.AXpj7yF3E7wCv8yj9I_sdC9YbI60ruDfVP_m-o3cF6E');
+  // }
+    // await pref.setString('refreshToken',
+    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjgzYjM3OTM2LTAzMDktNGM5NS1iNzQ5LTFhYzBjOTI4YjRmMCIsImlhdCI6MTczMzY4NTk1MywiZXhwIjoxNzM4ODY5OTUzfQ.KbUjN3a2QzeiXJ_ZH2Xq7IM2J7mGm7Fhr1vGwyj4U7E');
+
   var startWidget = pref.getString('accessToken') == null
       ? StartScreen()
       : BottomNavigationScreen(ProfileScreen());
-  runApp(MyApp(startWidget));
+  runApp(MyApp(StartScreen()));
 }
 
 class MyApp extends StatelessWidget {
@@ -44,6 +49,7 @@ class MyApp extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final fontHeight = height / 852;
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xffFBFAFE),
@@ -53,6 +59,12 @@ class MyApp extends StatelessWidget {
           dividerColor: const Color(0xffD0D0D0),
           canvasColor: const Color(0xff4A3AFF),
           focusColor: const Color(0xff333377),
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: Colors.white,
+            selectionColor: Colors.white,
+            selectionHandleColor: Colors.white,
+          ),
+
           textTheme: TextTheme(
             labelMedium: GoogleFonts.ubuntu(
                 fontWeight: FontWeight.w500,
@@ -81,6 +93,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: startWidget);
+        home:startWidget);
   }
 }

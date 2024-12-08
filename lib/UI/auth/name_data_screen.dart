@@ -12,8 +12,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../start_screen/dialog.dart';
 
 class SignUpScreen extends StatefulWidget {
-  var emailLabelText = 'Имя';
-  var passwordLabelText = 'Фамилия';
+  var nameLabelText = 'Имя';
+  var professionLabelText = 'Профессия';
 
   bool secondWay;
 
@@ -100,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onChanged: (_) => BlocProvider.of<SignUpBloc>(context)
                           .add(SignUpDataEvent(
                               name: SignUpForm.name,
-                              surname: SignUpForm.surname)),
+                            profession: SignUpForm.profession)),
                         validationMessages: {
                           ValidationMessage.required: (error) =>
                           'Что-то тут явно не так',
@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           label: Row(
                             children: [
                               Container(width: 20),
-                              Text(widget.emailLabelText),
+                              Text(widget.nameLabelText),
                             ],
                           ),
                           labelStyle: theme.textTheme.bodySmall!.copyWith(),
@@ -136,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onChanged: (_) => BlocProvider.of<SignUpBloc>(context)
                           ..add(SignUpDataEvent(
                               name: SignUpForm.name,
-                              surname: SignUpForm.surname)),
+                              profession: SignUpForm.profession)),
                         validationMessages: {
                           ValidationMessage.required: (error) =>
                               'Что-то тут явно не так',
@@ -149,7 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           label: Row(
                             children: [
                               Container(width: 20),
-                              Text(widget.passwordLabelText),
+                              Text(widget.professionLabelText),
                             ],
                           ),
                           labelStyle: theme.textTheme.bodySmall,
@@ -159,7 +159,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(20)),
                         ),
-                        formControlName: 'surname',
+                        formControlName: 'profession',
                       ),
                     ),
 
@@ -172,15 +172,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: InkWell(
                             onTap: () async {
                                if(form.valid){
+                                 BlocProvider.of<SignUpBloc>(context).add(SendSignUpDataEvent());
                                  Navigator.of(context).push(SlideAnimationRoute(
                                      BlocProvider.value(
                                          value: BlocProvider.of<SignUpBloc>(context),
                                          child:
-                                         EmailDataScreen())
+                                         Builder(
+                                           builder: (context) {
+                                             return EmailDataScreen();
+                                           }
+                                         ))
                                  ));
                                } else{
                                  form.control('name').markAllAsTouched();
-                                 form.control('surname').markAllAsTouched();
+                                 form.control('profession').markAllAsTouched();
                                }
                             },
                             child: Container(

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:comeet/models/users/user_model.dart';
+import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class Event{
@@ -17,7 +18,7 @@ class Event{
   Event(this.name, this.description, this.dateStart, this.dateEnd, this.isLiked, this.people, this.photo, this.color);
 
   static Event fromJson(data){
-    return Event(data['label'],data['description'], DateTime.parse(data['startsAt']), DateTime.parse(data['endsAt']), false, [], 'assets/test_images/test1.jpeg', data['color'] == '' ? Colors.grey : data['color']);
+    return Event(data['label'],data['description'], DateTime.parse(data['startsAt']), DateTime.parse(data['endsAt']), false, [], data['image'] == null || data['image'] == '' ? '' : data['image'], data['color'] == '' ? getRandomColor() : data['color']);
   }
 
   static List<Event> getEventsFromJson(String jsonData){
@@ -26,7 +27,6 @@ class Event{
     for(var i in data){
       returnedData.add(Event.fromJson(i));
     }
-
     return returnedData;
   }
 }
