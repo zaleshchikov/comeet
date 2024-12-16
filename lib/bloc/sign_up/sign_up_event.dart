@@ -23,3 +23,10 @@ class SignUpDataEmailEvent extends SignUpEvent{
   SignUpDataEmailEvent({required this.email, required this.password});
 }
 
+class LogInEvent extends SignUpEvent{
+  final String email;
+  final String password;
+
+  LogInEvent(this.email, this.password);
+}
+

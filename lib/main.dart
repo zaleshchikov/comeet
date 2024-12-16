@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:comeet/UI/auth/email_data_screen.dart';
 import 'package:comeet/UI/auth/end_auth.dart';
+import 'package:comeet/UI/auth/log_in.dart';
 import 'package:comeet/UI/auth/meme_screen.dart';
 import 'package:comeet/UI/auth/name_data_screen.dart';
 import 'package:comeet/UI/events/event_back.dart';
@@ -11,6 +14,7 @@ import 'package:comeet/UI/profile/profile/profile_screen.dart';
 import 'package:comeet/UI/tests/back_test.dart';
 import 'package:comeet/UI/tests/test_screen.dart';
 import 'package:comeet/UI/user_card/card_screen.dart';
+import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,11 +36,23 @@ void main() async {
   // }
     // await pref.setString('refreshToken',
     //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjgzYjM3OTM2LTAzMDktNGM5NS1iNzQ5LTFhYzBjOTI4YjRmMCIsImlhdCI6MTczMzY4NTk1MywiZXhwIjoxNzM4ODY5OTUzfQ.KbUjN3a2QzeiXJ_ZH2Xq7IM2J7mGm7Fhr1vGwyj4U7E');
+  var response = await http.post(
+      Uri.parse(loginUrl),
+      headers: headersUrlencoded,
+      body: {
+        "email": 'zaleshchikovaa@gmail.com',
+        "password": '89634423139',
+      });
+  print(response.statusCode);
+    var resBody = jsonDecode(response.body);
+    await pref.setString('accessToken', resBody['accessToken']);
+    await pref.setString('refreshToken', resBody['refreshToken']);
+
 
   var startWidget = pref.getString('accessToken') == null
       ? StartScreen()
-      : BottomNavigationScreen(ProfileScreen());
-  runApp(MyApp(StartScreen()));
+      : BottomNavigationScreen(EventsScreen());
+  runApp(MyApp(startWidget));
 }
 
 class MyApp extends StatelessWidget {
@@ -66,6 +82,10 @@ class MyApp extends StatelessWidget {
           ),
 
           textTheme: TextTheme(
+            labelLarge: GoogleFonts.ubuntu(
+                fontWeight: FontWeight.w500,
+                fontSize: fontHeight * 13,
+                color: bottomNavigationColorDark),
             labelMedium: GoogleFonts.ubuntu(
                 fontWeight: FontWeight.w500,
                 fontSize: fontHeight * 13,
@@ -93,6 +113,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home:startWidget);
+        home:LogInScreen());
   }
 }

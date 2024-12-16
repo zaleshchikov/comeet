@@ -49,6 +49,31 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     debugPrint(response.body);
   }
 
+  _onAddFriend(AddFriend event, Emitter<CardState> emit) async {
+    var utoken = await updateToken();
+    var token = await getToken();
+
+    var response = await http.get(
+      Uri.parse(addFriend + event.id),
+      headers: JsonContentHeaders(token),
+    );
+
+
+    debugPrint(response.body);
+  }
+
+  _onRemoveFriend(DeleteFriend event, Emitter<CardState> emit) async {
+    var utoken = await updateToken();
+    var token = await getToken();
+
+    var response = await http.delete(
+      Uri.parse(addFriend + event.id),
+      headers: JsonContentHeaders(token),
+    );
+
+
+    debugPrint(response.body);
+  }
 
 
 }

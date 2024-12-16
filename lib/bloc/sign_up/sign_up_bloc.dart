@@ -16,6 +16,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpDataEvent>(_onUpdateData);
     on<SendSignUpDataEvent>(_onSendData);
     on<SignUpDataEmailEvent>(_onUpdateDataEmail);
+    on<LogInEvent>(_onLogIn);
   }
 
   _onUpdateData(SignUpDataEvent event, Emitter<SignUpState> emit) {
@@ -72,6 +73,40 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
 
   }
+
+  _onLogIn(LogInEvent event, Emitter<SignUpState> emit) async {
+
+    emit(SignUpState(
+        name: state.name, profession: state.profession,
+        email: state.email, password: state.password, isLoading: true, isError: false));
+
+      var response = await http.post(
+          Uri.parse(loginUrl),
+          headers: headersUrlencoded,
+          body: {
+            "email": event.email,
+            "password": event.password,
+          });
+
+      if(response.statusCode == 200){
+        var resBody = jsonDecode(response.body);
+        _saveToken(resBody['accessToken'], resBody['refreshToken']);
+
+        emit(SignUpState(name: state.name, profession: state.profession,
+            email: state.email,
+            password: state.password,
+            isSuccessRequest: true));
+      } else{
+        emit(SignUpState(name: state.name, profession: state.profession,
+            email: state.email,
+            password: state.password,
+            isError: true));
+
+      }
+
+    }
+
+
 
   _saveToken(String accessToken, String refreshToken) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

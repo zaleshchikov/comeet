@@ -12,35 +12,32 @@ class FriendList extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
 
-    return BlocProvider(
-      create: (context) => FriendBloc()..add(GetFriends()),
-      child: Builder(builder: (context) {
-        return BlocBuilder<FriendBloc, FriendState>(
-          builder: (context, state) {
-            return Container(
-              width: size.width,
-              height: size.height / 6 + size.height / 50,
-              child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                      state.friends.length,
-                      (index) => Container(
-                            padding: EdgeInsets.all(size.height / 100),
-                            child: Container(
-                              height: size.height / 6,
-                              width: size.height / 6,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          state.friends[index].photo),
-                                      fit: BoxFit.cover)),
-                            ),
-                          ))),
-            );
-          },
-        );
-      }),
-    );
+    return Builder(builder: (context) {
+      return BlocBuilder<FriendBloc, FriendState>(
+        builder: (context, state) {
+          return Container(
+            width: size.width,
+            height: size.height / 6 + size.height / 50,
+            child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: List.generate(
+                    state.friends.length,
+                    (index) => Container(
+                          padding: EdgeInsets.all(size.height / 100),
+                          child: Container(
+                            height: size.height / 6,
+                            width: size.height / 6,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        state.friends[index].photo),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ))),
+          );
+        },
+      );
+    });
   }
 }

@@ -35,12 +35,12 @@ class _EventCardsState extends State<EventCards> {
             itemBuilder: (context, index) => InkWell(
                   onTap: () {
                     showBottomSheet(
-                      shape: CircleBorder(),
+                      enableDrag: true,
                       backgroundColor: Colors.transparent,
                       context: context,
                       builder: (
                           context
-                          ) => EventBottomSheet(),
+                          ) => EventBottomSheet(widget.events[index]),
                     );
                   },
                   child: Container(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:comeet/models/events/event_model.dart';
+import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +19,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
             events: [])) {
     on<GetEvents>(_getEvents);
     on<GetMyEvent>(_getMyEvents);
+    on<AddEvent>(_addEvent);
   }
 
   _getEvents(GetEvents event, Emitter<EventState> emit) async {
@@ -56,6 +58,31 @@ class EventBloc extends Bloc<EventEvent, EventState> {
 
     if (response.statusCode == 200){
       emit(EventState(events: Event.getEventsFromJson(response.body)));
+    }
+    debugPrint(response.body);
+  }
+
+  _addEvent(AddEvent event, Emitter<EventState> emit) async {
+    emit(EventState(
+        events: state.events,
+        isLoading: true));
+    var utoken = await updateToken();
+    var token = await getToken();
+
+    var response = await http.post(
+      Uri.parse(allEvent),
+      headers: JsonContentHeaders(token),
+      body:{
+        "startsAt": event.event.dateStart.toString(),
+        "endsAt": event.event.dateStart.toString(),
+        "label": event.event.name,
+        "description": event.event.description,
+        "color": getRandomColor().toString()
+      }
+    );
+
+    if (response.statusCode == 200){
+      emit(EventState(events: [...state.events, event.event], isLoading: false, successRequest: true));
     }
     debugPrint(response.body);
   }

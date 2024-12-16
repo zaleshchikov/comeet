@@ -3,11 +3,13 @@ import 'dart:math';
 
 var rng = Random();
 
+Color loginColor = const Color(0xffDADEE9);
 Color centerTestColor = const Color(0xff9CABC2);
 Color colorPinkback = const Color(0xffCBB3B4);
 Color colorPink = const Color(0xffF6C9C7);
 Color colorPinkTitle = const Color(0xffF1A39B);
 Color colorBlue = Color(0xffB1BDFA);
+Color purpuleColor = const Color(0xff4C4FAD);
 Color progressContainerColor = Color(0xffBDC451);
 Color bottomNavigationColorDark = const Color(0xff333333);
 Color profileBackBottomColor = const Color(0xffDADEE9);

@@ -48,6 +48,7 @@ final headersUrlencoded = {'content-type': 'application/x-www-form-urlencoded'};
 final headersMedial = {'content-type': 'application/x-www-form-urlencoded'};
 const myProfile = '$mainUrl/api/user/me';
 const profile = '$mainUrl/api/user';
+const addFriend = '$mainUrl/api/user/addFriend/:';
 
 const findUser = '$mainUrl/api/user/find';
 const friendURL = '$mainUrl/api/user/friends';
