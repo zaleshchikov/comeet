@@ -1,4 +1,3 @@
-import 'package:comeet/UI/auth/recover_password.dart';
 import 'package:comeet/bloc/sign_up/sign_up_bloc.dart';
 import 'package:comeet/bloc/sign_up/sign_up_form.dart';
 import 'package:comeet/request_constant/colors.dart';
@@ -10,14 +9,14 @@ import '../animation/animation_one.dart';
 import '../navigation/botoom_navigation.dart';
 import '../profile/profile/profile_screen.dart';
 
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
+class RecoverPassword extends StatefulWidget {
+  const RecoverPassword({super.key});
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  State<RecoverPassword> createState() => _RecoverPasswordState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _RecoverPasswordState extends State<RecoverPassword> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -38,7 +37,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   formGroup: SignUpForm.emailForm,
                   child: Scaffold(
                     resizeToAvoidBottomInset: false,
-                    backgroundColor: loginColor,
+                    backgroundColor: recoverAuthColor,
                     body: Center(
                       child: Container(
                         height: size.height / 2,
@@ -50,9 +49,23 @@ class _LogInScreenState extends State<LogInScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(height: size.height / 50),
+                            Container(
+                              padding: EdgeInsets.only(left: size.width*0.05),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Восстановление\nпароля',
+                                    style: theme.textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
+                            ),
                             Text(
-                              'С возвращением!',
-                              style: theme.textTheme.titleLarge,
+                              'Не переживайте!\nМы вышлем на почту инструкцию\nдля сброса пароля.',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                  color: bottomNavigationColorDark
+                                      .withOpacity(0.5),
+                                  fontWeight: FontWeight.w600),
                             ),
                             Container(height: size.height / 30),
                             Container(
@@ -70,7 +83,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                   cursorColor: theme.textTheme.bodySmall!.color,
                                   decoration: InputDecoration(
                                     helperText: '',
-                                    labelText: 'введите почту',
+                                    labelText: '',
                                     labelStyle: theme.textTheme.bodyMedium!
                                         .copyWith(
                                             color: bottomNavigationColorDark
@@ -86,46 +99,11 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ),
                               ),
                             ),
-                            Container(
-                                height: size.height / 12,
-                                width: size.width * 0.7,
-                                child: Center(
-                                    child: ReactiveTextField(
-                                  validationMessages: {
-                                    ValidationMessage.required: (error) =>
-                                        'Чего-то тут не хватает',
-                                  },
-                                  style: theme.textTheme.bodySmall,
-                                  cursorColor: theme.textTheme.bodySmall!.color,
-                                  decoration: InputDecoration(
-                                    errorStyle: theme.textTheme.labelLarge!
-                                        .copyWith(color: Color(0xffc20000)),
-                                    labelText: 'вспомните пароль',
-                                    labelStyle: theme.textTheme.bodyMedium!
-                                        .copyWith(
-                                            color: bottomNavigationColorDark
-                                                .withOpacity(0.5),
-                                            fontWeight: FontWeight.w600),
-                                    helperText: state.isError
-                                        ? 'Ошибка авторизации'
-                                        : '',
-                                    helperStyle: theme.textTheme.labelLarge!
-                                        .copyWith(color: Color(0xffc20000)),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                  ),
-                                  formControlName: 'password',
-                                ))),
-                            Container(height: size.height / 30),
                             ReactiveFormConsumer(
                                 builder: (context, form, child) {
                               return InkWell(
                                 onTap: () {
                                   form.markAllAsTouched();
-
                                   if (form.valid) {
                                     BlocProvider.of<SignUpBloc>(context).add(
                                         LogInEvent(form.control('email').value,
@@ -140,14 +118,14 @@ class _LogInScreenState extends State<LogInScreen> {
                                     width: size.width * 0.37,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
-                                        color: purpuleColor),
+                                        color: colorPinkTitle),
                                     child: Center(
                                       child: state.isLoading
                                           ? CircularProgressIndicator(
                                               color: Colors.white,
                                             )
                                           : Text(
-                                              'войти',
+                                              'отправить',
                                               style: theme.textTheme.titleSmall,
                                             ),
                                     ),
@@ -155,20 +133,13 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ),
                               );
                             }),
-                            Container(height: size.height / 100),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                    SlideAnimationRoute(RecoverPassword()));
-                              },
-                              child: Center(
-                                child: Text(
-                                  'забыли пароль?',
-                                  style: theme.textTheme.bodyMedium!.copyWith(
-                                      color: bottomNavigationColorDark
-                                          .withOpacity(0.5),
-                                      fontWeight: FontWeight.w600),
-                                ),
+                            Center(
+                              child: Text(
+                                'забыли пароль?',
+                                style: theme.textTheme.bodyMedium!.copyWith(
+                                    color: bottomNavigationColorDark
+                                        .withOpacity(0.5),
+                                    fontWeight: FontWeight.w600),
                               ),
                             ),
                             Container(height: size.height / 50),

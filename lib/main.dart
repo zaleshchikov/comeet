@@ -12,6 +12,7 @@ import 'package:comeet/UI/profile/friends/friend_screen.dart';
 import 'package:comeet/UI/profile/profile/last_tests/back_test_card.dart';
 import 'package:comeet/UI/profile/profile/profile_screen.dart';
 import 'package:comeet/UI/tests/back_test.dart';
+import 'package:comeet/UI/tests/start_test/start_test_start_screen.dart';
 import 'package:comeet/UI/tests/test_screen.dart';
 import 'package:comeet/UI/user_card/card_screen.dart';
 import 'package:comeet/request_constant/colors.dart';
@@ -20,6 +21,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import 'UI/tests/tests_screen.dart';
 import 'request_constant/request_constant.dart';
 import 'UI/auth/carousel_screen.dart';
 import 'UI/start_screen/start_screen.dart';
@@ -113,6 +115,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home:LogInScreen());
+        home:TestsScreen());
   }
 }

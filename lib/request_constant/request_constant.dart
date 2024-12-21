@@ -27,15 +27,14 @@ Future<void> updateToken() async {
 }
 
 Color getColorFromString(String color){
-    return getRandomColor();
-
-  String valueString = color.split('(0x')[1].split(')')[0]; // kind of hacky..
-  int value = int.parse(valueString, radix: 16);
-  Color otherColor = Color(value);
-  return otherColor;
+    if(color == '' || color == 'color') return getRandomColor();
+    return Color(int.parse(color.substring(10, color.length-2), radix: 16) + 0xFF000000);
 }
 
 Future<String> getToken() async {
+
+  await updateToken();
+
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString('accessToken') ?? '';
 }
@@ -48,7 +47,11 @@ final headersUrlencoded = {'content-type': 'application/x-www-form-urlencoded'};
 final headersMedial = {'content-type': 'application/x-www-form-urlencoded'};
 const myProfile = '$mainUrl/api/user/me';
 const profile = '$mainUrl/api/user';
-const addFriend = '$mainUrl/api/user/addFriend/:';
+const addFriend = '$mainUrl/api/user/addFriend/';
+const testPreview = '$mainUrl/api/test/previews';
+const testResultURL = '$mainUrl/api/test/testResult';
+const test = '$mainUrl/api/test/';
+
 
 const findUser = '$mainUrl/api/user/find';
 const friendURL = '$mainUrl/api/user/friends';
