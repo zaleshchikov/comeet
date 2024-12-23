@@ -22,7 +22,7 @@ class TestPreview {
         js['description'],
         getColorFromString(js['color']),
         js['image'],
-        js['TestResult'].length == 0 ? null : List<TestResult>.from(
+        js['TestResult'] == null ? null : js['TestResult'].length == 0 ? null : List<TestResult>.from(
             js['TestResult'].map((model) => TestResult.fromJson(model)))[0]);
   }
 

@@ -12,7 +12,7 @@ class AnswerOption {
     required this.questionId,
   });
 
-  factory AnswerOption.fromJson(Map<String, dynamic> json) {
+  factory AnswerOption.fromJson(json) {
     return AnswerOption(
       id: json['id'],
       text: json['text'],

@@ -19,15 +19,16 @@ class Question {
     required this.answerOption,
   });
 
-  factory Question.fromJson(Map<String, dynamic> json) {
+  factory Question.fromJson(json) {
     return Question(
       id: json['id'],
       type: json['type'],
       text: json['text'],
       testId: json['testId'],
       testResultOptionsId: json['testResultOptionsId'],
-      answerOption: List<AnswerOption>.from(
-          json['AnswerOption'].map((model) => AnswerOption.fromJson(model))),
+      answerOption: json['AnswerOption'] == null ? [] : List<AnswerOption>.from(
+          json['AnswerOption'].map((model) =>
+              AnswerOption.fromJson(model))),
     );
   }
 

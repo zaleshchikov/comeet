@@ -16,3 +16,10 @@ class UpdateTestResult extends TestEvent{
 }
 
 class SendTestResult extends TestEvent{}
+
+class AddAnswer extends TestEvent{
+  int index;
+  AnswerOption answer;
+
+  AddAnswer(this.index, this.answer);
+}

@@ -16,6 +16,6 @@ class TestResultOption {
   );
 
   factory TestResultOption.fromJson(js){
-    return TestResultOption(js['id'], js['image'], js['text'], js['testId'], js['tagId']);
+    return TestResultOption(js['id'], js['image'] ?? '', js['text'], js['testId'], js['tagId']);
   }
 }

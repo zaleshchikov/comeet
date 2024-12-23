@@ -1,16 +1,19 @@
 import 'package:comeet/UI/tests/back_test.dart';
-import 'package:comeet/UI/tests/test_center.dart';
+import 'package:comeet/UI/tests/test_result/test_center.dart';
+import 'package:comeet/models/tests/answer_options.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 
-class TestScreen extends StatefulWidget {
-  const TestScreen({super.key});
+class TestResultScreen extends StatefulWidget {
 
+  AnswerOption answer;
+
+  TestResultScreen(this.answer);
   @override
-  State<TestScreen> createState() => _TestScreenState();
+  State<TestResultScreen> createState() => _TestResultScreenState();
 }
 
-class _TestScreenState extends State<TestScreen> {
+class _TestResultScreenState extends State<TestResultScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -32,7 +35,7 @@ class _TestScreenState extends State<TestScreen> {
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
                 ),
-          Center(child: TestCenter(color: Color(0xffF6C9C7), name: 'Тест\n“Какой ты тип личности”')),
+          Center(child: TestCenter(color: Color(0xffF6C9C7), name: widget.answer.text)),
 
           Container(
             padding: EdgeInsets.only(top: size.height*0.87),

@@ -1,6 +1,6 @@
 import 'package:comeet/UI/events/event_screen.dart';
 import 'package:comeet/UI/profile/profile/profile_screen.dart';
-import 'package:comeet/UI/tests/test_screen.dart';
+import 'package:comeet/UI/tests/test_result/test_screen.dart';
 import 'package:comeet/UI/user_card/card_screen.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/cupertino.dart';

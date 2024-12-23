@@ -93,10 +93,10 @@ class TestCards extends StatelessWidget {
                                                             Container(
                                                                 height:
                                                                     size.height /
-                                                                        8,
+                                                                        12,
                                                                 width:
                                                                     size.height /
-                                                                        8,
+                                                                        12,
                                                                 decoration: BoxDecoration(
                                                                     shape: BoxShape
                                                                         .circle,
@@ -111,28 +111,40 @@ class TestCards extends StatelessWidget {
                                                                   MainAxisAlignment
                                                                       .spaceEvenly,
                                                               children: [
-                                                                Text(
-                                                                    state
-                                                                        .testPreviews[
-                                                                            index]!
-                                                                        .label,
-                                                                    style: theme
-                                                                        .textTheme
-                                                                        .bodyLarge!
-                                                                        .copyWith(
-                                                                            color:
-                                                                                Colors.white)),
-                                                                Text(
-                                                                    state
-                                                                        .testPreviews[
-                                                                            index]!
-                                                                        .description,
-                                                                    style: theme
-                                                                        .textTheme
-                                                                        .bodyMedium!
-                                                                        .copyWith(
-                                                                            color:
-                                                                                Colors.white))
+                                                                Container(
+                                                                  width: size.width*0.5,
+                                                                  height: size.height/40,
+                                                                  child: Text(
+                                                                      state
+                                                                          .testPreviews[
+                                                                              index]!
+                                                                          .label,  overflow: TextOverflow.clip,
+                                                                      style: theme
+                                                                          .textTheme
+                                                                          .labelLarge!
+                                                                          .copyWith(
+                                                                              color:
+                                                                                  Colors.white)),
+                                                                ),
+                                                                Container(
+                                                                    width: size.width*0.5,
+                                                                    child: Divider(color: Colors.white, height: size.height/50,)),
+                                                                Container(
+                                                                  width: size.width*0.5,
+                                                                  height: size.height/11,
+
+                                                                  child: Text(
+                                                                      state
+                                                                          .testPreviews[
+                                                                              index]!
+                                                                          .description,
+                                                                      style: theme
+                                                                          .textTheme
+                                                                          .bodySmall!
+                                                                          .copyWith(
+                                                                              color:
+                                                                                  Colors.white), overflow: TextOverflow.clip,),
+                                                                )
                                                               ],
                                                             )
                                                           ],

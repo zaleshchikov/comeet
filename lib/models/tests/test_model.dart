@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:comeet/models/tests/TestResultOption.dart';
 import 'package:comeet/models/tests/question_model.dart';
 import 'package:comeet/models/tests/test_prewiew.dart';
@@ -17,8 +19,11 @@ class Test extends TestPreview {
       this.testResultOptions,
       this.questions);
 
-  factory Test.fromJson(js) {
-    TestPreview testPreview = TestPreview.fromJson(js);
+  factory Test.fromJson(jsCoded) {
+    var jsSuper = jsonDecode(jsCoded);
+    var js = jsonDecode(jsCoded);
+    TestPreview testPreview = TestPreview.fromJson(jsSuper);
+
     return Test(
         testPreview.id,
         testPreview.label,

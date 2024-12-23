@@ -1,8 +1,11 @@
+import 'package:comeet/UI/tests/start_test/question_screen.dart';
 import 'package:comeet/bloc/test/test/test_bloc.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../animation/animation_one.dart';
 
 class TestStartScreen extends StatelessWidget {
   const TestStartScreen({super.key});
@@ -12,45 +15,72 @@ class TestStartScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: purpuleColor,
-      body: BlocBuilder<TestBloc, TestState>(
-  builder: (context, state) {
-    return Center(
-        child: Container(
-          height: size.height / 2.3,
-          width: size.width * 0.8,
-          decoration: BoxDecoration(
-              color: state.test!.color,
-              borderRadius: BorderRadius.circular(25)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                state.test!.label,
-                style: theme.textTheme.titleMedium!.copyWith(
-                    color: Colors.black, fontFamily: GoogleFonts.mPlusRounded1c().fontFamily, fontWeight: FontWeight.w800
+    return BlocBuilder<TestBloc, TestState>(builder: (context, state) {
+      return Scaffold(
+        backgroundColor: state.test!.color,
+        body: Center(
+          child: Container(
+            constraints: BoxConstraints(
+                  minHeight: size.height / 2.3,
+                  minWidth: size.width * 0.9,
+                  maxHeight: size.height,
+                  maxWidth: size.width * 0.9,
                 ),
-              ),
-              Container(
-                  width: size.width * 0.6,
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    state.test!.description,
-                    style: theme.textTheme.bodyLarge!.copyWith(
-                      color: Colors.black, fontFamily: GoogleFonts.mPlusRounded1c().fontFamily, fontWeight: FontWeight.w600
+            decoration: BoxDecoration(
+                color: Color(0xffffffff),
+                borderRadius: BorderRadius.circular(25)),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: size.height/100),
+                      width: size.width*0.75,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        state.test!.label,
+                        style: theme.textTheme.titleMedium!.copyWith(
+                            color: Colors.black,
+                            fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
+                            fontWeight: FontWeight.w800),
+                      ),
                     ),
-                  )),
-              Image(
-                image: AssetImage('assets/tests/start_main_test_button.png'),
-                height: size.height / 5,
-              )
-            ],
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: size.width/40),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          state.test!.description,
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                              color: Colors.black,
+                              fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
+                              fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(SlideAnimationRoute(
+                          BlocProvider.value(
+                              value: BlocProvider.of<TestBloc>(context),
+                              child: QuestionScreen())));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(size.height/100),
+                      child: Image(
+                        image:
+                            AssetImage('assets/tests/start_main_test_button.png'),
+                        height: size.height / 5,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       );
-  },
-),
-    );
+    });
   }
 }
