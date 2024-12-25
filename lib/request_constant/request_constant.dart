@@ -52,6 +52,9 @@ const testPreview = '$mainUrl/api/test/previews';
 const testResultURL = '$mainUrl/api/test/testResult';
 const test = '$mainUrl/api/test/';
 
+const allTag = '$mainUrl/api/tag/all';
+const tag = '$mainUrl/api/tag/';
+const myTag = '$mainUrl/api/tag/my';
 
 const findUser = '$mainUrl/api/user/find';
 const friendURL = '$mainUrl/api/user/friends';

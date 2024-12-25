@@ -30,3 +30,20 @@ class LogInEvent extends SignUpEvent{
   LogInEvent(this.email, this.password);
 }
 
+class ChangeYearsOld extends SignUpEvent{
+  int years;
+
+  ChangeYearsOld(this.years);
+}
+
+class ChangeYearsOfWorkingOld extends SignUpEvent{
+  int years;
+
+  ChangeYearsOfWorkingOld(this.years);
+}
+
+class ChangeHeight extends SignUpEvent{
+  int height;
+
+  ChangeHeight(this.height);
+}

@@ -15,9 +15,7 @@ import '../start_screen/dialog.dart';
 class CarouselScreen extends StatefulWidget {
   var emailLabelText = 'Почта';
   var passwordLabelText = 'Телефон';
-  int yearsOfWorking = 5;
-  int yearsOld = 5;
-  int humanHeight = 170;
+
 
   bool secondWay;
 
@@ -71,6 +69,8 @@ class _CarouselScreen extends State<CarouselScreen> {
           ),
         );
 
+    return BlocBuilder<SignUpBloc, SignUpState>(
+  builder: (context, state) {
     return Scaffold(
           body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -101,7 +101,7 @@ class _CarouselScreen extends State<CarouselScreen> {
                         ),
                         Row(
                           children: [
-                            Text('${widget.yearsOld}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
+                            Text('${state.yearsOld}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
                           ],
                         ),
                         Center(
@@ -111,14 +111,13 @@ class _CarouselScreen extends State<CarouselScreen> {
                             carouselController: carouselController,
                             options: CarouselOptions(
                                 onPageChanged: (index, _) {
-                                  setState(() {
-                                    widget.yearsOld = index;
-                                  });
+                                  BlocProvider.of<SignUpBloc>(context).add(ChangeYearsOld(index));
+
                                 },
                               height: height / 20,
                               aspectRatio: 1 / 50,
                               viewportFraction: 0.025,
-                              initialPage: widget.yearsOld,
+                              initialPage: state.yearsOld,
                             ),
                             itemCount: 100,
                             itemBuilder: (BuildContext context, int itemIndex,
@@ -132,9 +131,9 @@ class _CarouselScreen extends State<CarouselScreen> {
                                       height:
                                           itemIndex % 5 == 0 ? height / 30 : height / 50,
                                       decoration: BoxDecoration(
-                                          color: ((itemIndex - 2 <= widget.yearsOld) &&
-                                                  (itemIndex + 2 >= widget.yearsOld))
-                                              ? widget.yearsOld == itemIndex ? theme.canvasColor : theme.focusColor
+                                          color: ((itemIndex - 2 <= state.yearsOld) &&
+                                                  (itemIndex + 2 >= state.yearsOld))
+                                              ? state.yearsOld == itemIndex ? theme.canvasColor : theme.focusColor
                                               : theme.canvasColor.withOpacity(0.3)),
                                     ),
                                   ],
@@ -153,7 +152,7 @@ class _CarouselScreen extends State<CarouselScreen> {
                         ),
                         Row(
                           children: [
-                            Text('${widget.yearsOfWorking}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
+                            Text('${state.yearsOfWorking}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
                           ],
                         ),
                         Center(
@@ -163,14 +162,12 @@ class _CarouselScreen extends State<CarouselScreen> {
                             carouselController: carouselController,
                             options: CarouselOptions(
                               onPageChanged: (index, _) {
-                                setState(() {
-                                  widget.yearsOfWorking = index;
-                                });
+                                BlocProvider.of<SignUpBloc>(context).add(ChangeYearsOfWorkingOld(index));
                               },
                               height: height / 20,
                               aspectRatio: 1 / 50,
                               viewportFraction: 0.025,
-                              initialPage: widget.yearsOfWorking,
+                              initialPage: state.yearsOfWorking,
                             ),
                             itemCount: 100,
                             itemBuilder: (BuildContext context, int itemIndex,
@@ -184,9 +181,9 @@ class _CarouselScreen extends State<CarouselScreen> {
                                       height:
                                       itemIndex % 5 == 0 ? height / 30 : height / 50,
                                       decoration: BoxDecoration(
-                                          color: ((itemIndex - 2 <= widget.yearsOfWorking) &&
-                                              (itemIndex + 2 >= widget.yearsOfWorking))
-                                              ? widget.yearsOfWorking == itemIndex ? theme.canvasColor : theme.focusColor
+                                          color: ((itemIndex - 2 <= state.yearsOfWorking) &&
+                                              (itemIndex + 2 >= state.yearsOfWorking))
+                                              ? state.yearsOfWorking == itemIndex ? theme.canvasColor : theme.focusColor
                                               : theme.canvasColor.withOpacity(0.3)),
                                     ),
                                   ],
@@ -205,7 +202,7 @@ class _CarouselScreen extends State<CarouselScreen> {
                         ),
                         Row(
                           children: [
-                            Text('${widget.humanHeight}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
+                            Text('${state.humanHeight}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
                           ],
                         ),
                         Center(
@@ -215,14 +212,12 @@ class _CarouselScreen extends State<CarouselScreen> {
                             carouselController: carouselController,
                             options: CarouselOptions(
                               onPageChanged: (index, _) {
-                                setState(() {
-                                  widget.humanHeight = index;
-                                });
+                                BlocProvider.of<SignUpBloc>(context).add(ChangeHeight(index));
                               },
                               height: height / 20,
                               aspectRatio: 1 / 50,
                               viewportFraction: 0.025,
-                              initialPage: widget.humanHeight,
+                              initialPage: state.humanHeight,
                             ),
                             itemCount: 300,
                             itemBuilder: (BuildContext context, int itemIndex,
@@ -236,9 +231,9 @@ class _CarouselScreen extends State<CarouselScreen> {
                                       height:
                                       itemIndex % 5 == 0 ? height / 30 : height / 50,
                                       decoration: BoxDecoration(
-                                          color: ((itemIndex - 2 <= widget.humanHeight) &&
-                                              (itemIndex + 2 >= widget.humanHeight))
-                                              ? widget.humanHeight == itemIndex ? theme.canvasColor : theme.focusColor
+                                          color: ((itemIndex - 2 <= state.humanHeight) &&
+                                              (itemIndex + 2 >= state.humanHeight))
+                                              ? state.humanHeight == itemIndex ? theme.canvasColor : theme.focusColor
                                               : theme.canvasColor.withOpacity(0.3)),
                                     ),
                                   ],
@@ -280,6 +275,8 @@ class _CarouselScreen extends State<CarouselScreen> {
               ),
             ))
           ]));
+  },
+);
 
   }
 }

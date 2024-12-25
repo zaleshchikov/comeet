@@ -45,7 +45,7 @@ void main() async {
         "email": 'zaleshchikovaa@gmail.com',
         "password": '89634423139',
       });
-  print(response.statusCode);
+  print(jsonDecode(response.body));
     var resBody = jsonDecode(response.body);
     await pref.setString('accessToken', resBody['accessToken']);
     await pref.setString('refreshToken', resBody['refreshToken']);
@@ -115,6 +115,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home:TestsScreen());
+        home:TestsScreen()
+    );
   }
 }

@@ -9,8 +9,19 @@ class SignUpState {
   final bool isLoading;
   bool isSuccessRequest;
   bool isError;
+  int yearsOfWorking;
+  int yearsOld;
+  int humanHeight;
 
-  SignUpState({required this.name,required this.profession, required this.email, required this.password, this.isLoading = false, this.isSuccessRequest = false, this.isError = false});
+  SignUpState(
+      {required this.name,
+      required this.profession,
+      required this.email,
+      required this.password,
+      this.isLoading = false,
+      this.isSuccessRequest = false,
+      this.isError = false,
+      required this.humanHeight,
+      required this.yearsOld,
+      required this.yearsOfWorking});
 }
-
-

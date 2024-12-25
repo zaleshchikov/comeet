@@ -5,8 +5,9 @@ class TestState {
   bool isLoading;
   Map<TestResultOption, int>? testResults;
   bool isSuccessRequest;
-  List? answers;
+  List<AnswerOption>? answers;
+  bool endTest;
 
-  TestState(this.test, {this.isLoading = false, this.testResults, this.isSuccessRequest = false, this.answers});
+  TestState(this.test, {this.isLoading = false, this.testResults, this.isSuccessRequest = false, this.answers, this.endTest = false});
 }
 

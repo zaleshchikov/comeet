@@ -9,10 +9,6 @@ class onGetTest extends TestEvent {
 }
 
 class UpdateTestResult extends TestEvent{
-  String tagId;
-  int weight;
-
-  UpdateTestResult(this.tagId, this.weight);
 }
 
 class SendTestResult extends TestEvent{}
