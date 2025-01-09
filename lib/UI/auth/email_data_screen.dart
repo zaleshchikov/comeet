@@ -13,7 +13,7 @@ import '../start_screen/dialog.dart';
 
 class EmailDataScreen extends StatefulWidget {
   var emailLabelText = 'Почта';
-  var passwordLabelText = 'Телефон';
+  var passwordLabelText = 'Пароль';
 
   bool secondWay;
 

@@ -13,8 +13,8 @@ class TestCenter extends StatelessWidget {
     var theme = Theme.of(context);
 
     return Container(
-      height: size.height*0.6,
-      width: size.width*0.8,
+      height: size.height*0.8,
+      width: size.width*0.9,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(40), color: color),
       child: Container(

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:comeet/bloc/event/event_bloc.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/events/event_model.dart';
 
@@ -195,16 +197,21 @@ class EventBottomSheet extends StatelessWidget {
                     ),
                   ),
                   Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: bottomNavigationColorDark,
-                          borderRadius: BorderRadius.circular(20)),
-                      height: size.height / 15,
-                      width: size.width * 0.8,
-                      child: Center(
-                        child: Text(
-                          'Посетить',
-                          style: theme.textTheme.titleSmall,
+                    child: InkWell(
+                      onTap: (){
+                        BlocProvider.of<EventBloc>(context).add(SubscribeEvent(event));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: bottomNavigationColorDark,
+                            borderRadius: BorderRadius.circular(20)),
+                        height: size.height / 15,
+                        width: size.width * 0.8,
+                        child: Center(
+                          child: Text(
+                            'Посетить',
+                            style: theme.textTheme.titleSmall,
+                          ),
                         ),
                       ),
                     ),

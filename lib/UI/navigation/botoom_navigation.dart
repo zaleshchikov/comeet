@@ -1,6 +1,7 @@
 import 'package:comeet/UI/events/event_screen.dart';
 import 'package:comeet/UI/profile/profile/profile_screen.dart';
 import 'package:comeet/UI/tests/test_result/test_screen.dart';
+import 'package:comeet/UI/tests/tests_screen.dart';
 import 'package:comeet/UI/user_card/card_screen.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,7 +39,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   void initState() {
     super.initState();
     listOfBody = [
-      CardScreen(),
+      TestsScreen(),
       CardScreen(),
       EventsScreen(),
       ProfileScreen(),
@@ -48,6 +49,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         ? Colors.white
         : bottomNavigationColorDark;
     setState(() {
+      if (widget.body.toString() == 'TestsScreen') {
+        _selectedIndex = 0;
+      }
       if (widget.body.toString() == 'EventsScreen') {
         _selectedIndex = 2;
       }

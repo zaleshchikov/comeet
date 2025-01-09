@@ -178,7 +178,7 @@ class _StartScreenState extends State<StartScreen> {
                 )),
               ]),
         ),
-        widget.messageIndex == 0
+        widget.messageIndex == 0 && !widget.secondWay
             ? Row(
                 children: [
                   Container(

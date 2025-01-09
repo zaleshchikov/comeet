@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:comeet/models/users/friend_model.dart';
 import 'package:comeet/models/users/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
@@ -17,24 +18,37 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
   _onGetData(GetCards event, Emitter<CardState> emit) async {
     emit(CardState(state.cards, isLoading: true));
-    var utoken = await updateToken();
     var token = await getToken();
 
-    var response = await http.get(
+    var response_user = await http.get(
       Uri.parse(findUser),
       headers: JsonContentHeaders(token),
     );
 
-    if(response.statusCode == 200){
-      emit(CardState(User.getEventsFromJson(response.body)));
+
+
+    if(response_user.statusCode == 200){
+
+      var response_friend = await http.get(
+        Uri.parse(friendURL),
+        headers: JsonContentHeaders(token),
+      );
+
+      if(response_friend.statusCode == 200){
+        var users = User.getEventsFromJson(response_user.body);
+        var friendsID = Friend.friendsFromUser(User.getEventsFromJson(response_friend.body)).map((e) => e.id);
+        users = users.where((e) => !friendsID.contains(e.id)).toList();
+        emit(CardState(users));
+
+      }
+
     }
-    debugPrint(response.body);
+    debugPrint(response_user.body);
     emit(CardState(state.cards, isLoading: false));
 
   }
 
   _onUpdateData(SearchCard event, Emitter<CardState> emit) async {
-    var utoken = await updateToken();
     var token = await getToken();
 
     var response = await http.get(
@@ -49,31 +63,9 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     debugPrint(response.body);
   }
 
-  _onAddFriend(AddFriend event, Emitter<CardState> emit) async {
-    var utoken = await updateToken();
-    var token = await getToken();
-
-    var response = await http.get(
-      Uri.parse(addFriend + event.id),
-      headers: JsonContentHeaders(token),
-    );
 
 
-    debugPrint(response.body);
-  }
 
-  _onRemoveFriend(DeleteFriend event, Emitter<CardState> emit) async {
-    var utoken = await updateToken();
-    var token = await getToken();
-
-    var response = await http.delete(
-      Uri.parse(addFriend + event.id),
-      headers: JsonContentHeaders(token),
-    );
-
-
-    debugPrint(response.body);
-  }
 
 
 }

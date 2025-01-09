@@ -46,7 +46,7 @@ class FriendScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      height: size.height / 20,
+                      height: size.height / 50,
                     ),
                     Container(
                       width: size.width * 0.8,
@@ -59,6 +59,16 @@ class FriendScreen extends StatelessWidget {
                       ),
                     ),
                      FriendList(),
+                    Container(
+                      width: size.width * 0.8,
+                      child: Row(
+                        children: [
+                          Container(
+                              width: size.width * 0.8,
+                              child: Text('Ваши коллеги:', style: theme.textTheme.titleSmall!.copyWith(color: theme.cardColor))),
+                        ],
+                      ),
+                    ),
                     Container(
                       width: size.width*0.9,
                       height: size.height/15,

@@ -1,11 +1,11 @@
-import 'package:comeet/UI/tests/start_test/question_screen.dart';
+import 'package:comeet/UI/tests/question_screen.dart';
 import 'package:comeet/bloc/test/test/test_bloc.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../animation/animation_one.dart';
+import '../animation/animation_one.dart';
 
 class TestStartScreen extends StatelessWidget {
   const TestStartScreen({super.key});
@@ -23,7 +23,7 @@ class TestStartScreen extends StatelessWidget {
             constraints: BoxConstraints(
                   minHeight: size.height / 2.3,
                   minWidth: size.width * 0.9,
-                  maxHeight: size.height,
+                  maxHeight: size.height*0.7,
                   maxWidth: size.width * 0.9,
                 ),
             decoration: BoxDecoration(

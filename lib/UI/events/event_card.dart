@@ -2,45 +2,44 @@ import 'dart:convert';
 
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:comeet/UI/events/event_bottom_sheet.dart';
+import 'package:comeet/bloc/event/event_bloc.dart';
 import 'package:comeet/models/events/event_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/users/friend_model.dart';
 import '../../../request_constant/colors.dart';
 
 class EventCards extends StatefulWidget {
 
-  List<Event> events;
-
-  EventCards(this.events);
-
   @override
   State<EventCards> createState() => _EventCardsState();
 }
 
 class _EventCardsState extends State<EventCards> {
-
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var size = MediaQuery.of(context).size;
 
+    return BlocBuilder<EventBloc, EventState>(
+  builder: (context, state) {
     return Container(
         height: size.height / 2,
         width: size.width,
         child: ListView.builder(
             padding: EdgeInsets.zero,
-            itemCount: widget.events.length,
-            itemBuilder: (context, index) => InkWell(
+            itemCount: state.events.length,
+            itemBuilder: (context1, index) => InkWell(
                   onTap: () {
                     showBottomSheet(
                       enableDrag: true,
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (
-                          context
-                          ) => EventBottomSheet(widget.events[index]),
+                      builder: (context1) => BlocProvider.value(
+                        value: BlocProvider.of<EventBloc>(context),
+                        child: EventBottomSheet(state.events[index]),
+                      ),
                     );
                   },
                   child: Container(
@@ -53,12 +52,12 @@ class _EventCardsState extends State<EventCards> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
-                          color: widget.events[index].color),
+                          color: state.events[index].color),
                       padding: EdgeInsets.all(size.height / 200),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          widget.events[index].photo == ""
+                          state.events[index].photo == ""
                               ? Container(
                                   height: size.width / 4,
                                   width: size.width / 4,
@@ -76,8 +75,8 @@ class _EventCardsState extends State<EventCards> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
-                                          image:
-                                              MemoryImage(base64Decode(widget.events[index].photo)),
+                                          image: MemoryImage(base64Decode(
+                                              state.events[index].photo)),
                                           fit: BoxFit.cover)),
                                 ),
                           Container(
@@ -92,7 +91,7 @@ class _EventCardsState extends State<EventCards> {
                                   children: [
                                     Container(
                                       width: size.width / 4,
-                                      child: Text(widget.events[index].name,
+                                      child: Text(state.events[index].name,
                                           textAlign: TextAlign.center,
                                           style: theme.textTheme.bodyMedium!
                                               .copyWith(
@@ -106,7 +105,7 @@ class _EventCardsState extends State<EventCards> {
                                     Container(
                                         width: size.width / 3,
                                         child: Text(
-                                          widget.events[index].description,
+                                          state.events[index].description,
                                           overflow: TextOverflow.fade,
                                           textAlign: TextAlign.left,
                                           style: theme.textTheme.labelMedium!
@@ -122,13 +121,16 @@ class _EventCardsState extends State<EventCards> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                widget.events[index].isLiked = !widget.events[index].isLiked;
+                                state.events[index].isLiked ? BlocProvider.of<EventBloc>(context).add(UnSubscribeEvent(state.events[index])) :
+                                BlocProvider.of<EventBloc>(context).add(SubscribeEvent(state.events[index]));
+                                state.events[index].isLiked =
+                                    !state.events[index].isLiked;
                               });
                             },
                             child: Container(
                               width: size.width / 10,
                               child: Center(
-                                child: widget.events[index].isLiked
+                                child: state.events[index].isLiked
                                     ? Icon(Icons.favorite,
                                         color: colorPinkTitle)
                                     : Icon(Icons.favorite_border_outlined,
@@ -142,5 +144,7 @@ class _EventCardsState extends State<EventCards> {
                     ),
                   ),
                 )));
+  },
+);
   }
 }

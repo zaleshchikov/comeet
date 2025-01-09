@@ -89,7 +89,15 @@ class EventsScreen extends StatelessWidget {
                                     ],
                                   ),
                                 )
-                              : EventCards(state.events);
+                              : state.events.isEmpty
+                                  ? Container(
+                                      height: size.height / 2,
+                                      child: Center(
+                                          child: Text(textAlign: TextAlign.center,
+                                        'Мероприятий\nпока нет...',
+                                        style: theme.textTheme.titleLarge,
+                                      )))
+                                  : EventCards();
                         }),
                         InkWell(
                           onTap: () {

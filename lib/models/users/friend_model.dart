@@ -15,4 +15,7 @@ class Friend extends User {
     }
     return returnFriends;
   }
+   factory Friend.friendFromUser(User user){
+    return Friend(user.name, user.description, user.photo, user.profession, user.id, user.color);
+   }
 }

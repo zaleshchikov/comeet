@@ -77,8 +77,8 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       body: {
         "testId": state.test!.id,
         "resultTagIds": //state.test!.numberOfResults == 0 ?
-        result
-        //: testResult!.keys.map((result) => result.tagId).toList().sublist(0, state.test!.numberOfResults)
+        //result
+         testResult.keys.map((result) => result.tagId).toList().sublist(0, state.test!.numberOfResults).toString()
       }
     );
     print(jsonDecode(response.body));

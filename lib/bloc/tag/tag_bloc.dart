@@ -12,7 +12,7 @@ part 'tag_state.dart';
 
 class TagBloc extends Bloc<TagEvent, TagState> {
   TagBloc() : super(TagState([])) {
-
+    on<GetAllTags>(_onGetUserTags);
   }
 
   _onGetUserTags(GetAllTags event, Emitter<TagState> emit) async {

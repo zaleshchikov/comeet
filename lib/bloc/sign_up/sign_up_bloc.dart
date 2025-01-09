@@ -202,6 +202,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           yearsOld: state.yearsOld,
           humanHeight: state.humanHeight));
     }
+    debugPrint(response.body);
   }
 
   Future<void> setTags() async {

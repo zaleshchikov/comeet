@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:comeet/UI/animation/animation_one.dart';
-import 'package:comeet/UI/tests/start_test/start_test_start_screen.dart';
+import 'package:comeet/UI/tests/start_test_start_screen.dart';
 import 'package:comeet/bloc/test/test/test_bloc.dart';
 import 'package:comeet/bloc/test/test_preview/test_preview_bloc.dart';
 import 'package:flutter/material.dart';

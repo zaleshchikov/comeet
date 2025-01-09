@@ -1,5 +1,7 @@
+import 'package:comeet/UI/animation/animation_one.dart';
 import 'package:comeet/UI/tests/back_test.dart';
 import 'package:comeet/UI/tests/test_result/test_center.dart';
+import 'package:comeet/UI/tests/tests_screen.dart';
 import 'package:comeet/models/tests/TestResultOption.dart';
 import 'package:comeet/models/tests/answer_options.dart';
 import 'package:comeet/request_constant/colors.dart';
@@ -36,17 +38,22 @@ class _TestResultScreenState extends State<TestResultScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: size.height/15,
-                  width: size.width*0.4,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.transparent
-                  ),
-                  child: Center(
-                    child: Text(
-                      'все тесты', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black),
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).push(SlideAnimationRoute(TestsScreen()));
+          },
+                  child: Container(
+                    height: size.height/15,
+                    width: size.width*0.4,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.transparent
+                    ),
+                    child: Center(
+                      child: Text(
+                        'все тесты', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black),
+                      ),
                     ),
                   ),
                 ),

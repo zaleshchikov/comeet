@@ -117,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
                               state.profile.description,
                               style: theme.textTheme.bodyLarge!.copyWith(
                                   color: Color(0xff8993A6),
-                                  height: 0.9 //You can set your custom height here
+                                  height: 0.9
                                   ),
                             ),
                           ),

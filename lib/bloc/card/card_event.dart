@@ -13,14 +13,3 @@ class SearchCard extends CardEvent{
  SearchCard(this.pattern);
 }
 
-class AddFriend extends CardEvent{
- String id;
-
- AddFriend(this.id);
-}
-
-class DeleteFriend extends CardEvent{
- String id;
-
- DeleteFriend(this.id);
-}

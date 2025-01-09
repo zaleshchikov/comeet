@@ -13,11 +13,12 @@ part 'friend_state.dart';
 class FriendBloc extends Bloc<FriendEvent, FriendState> {
   FriendBloc() : super(FriendState([])) {
     on<GetFriends>(_onGetData);
+    on<AddFriend>(_onAddFriend);
+    on<DeleteFriend>(_onRemoveFriend);
   }
 
   _onGetData(GetFriends event, Emitter<FriendState> emit) async {
     emit(FriendState(state.friends, isLoading: true));
-    var utoken = await updateToken();
     var token = await getToken();
 
     var response = await http.get(
@@ -31,7 +32,36 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     emit(FriendState(state.friends, isLoading: false));
 
     debugPrint(response.body);
+  }
 
+  _onAddFriend(AddFriend event, Emitter<FriendState> emit) async {
+    var token = await getToken();
+
+    var response = await http.post(
+      Uri.parse(addFriend + event.friend.id),
+      headers: JsonContentHeaders(token),
+    );
+
+    var friends = state.friends;
+    friends.add(event.friend);
+    emit(FriendState(friends));
+
+    debugPrint(response.body);
+  }
+
+  _onRemoveFriend(DeleteFriend event, Emitter<FriendState> emit) async {
+    var token = await getToken();
+
+    var response = await http.delete(
+      Uri.parse(deleteFriend + event.friend.id),
+      headers: JsonContentHeaders(token),
+    );
+
+    var friends = state.friends;
+    friends.remove(state.friends.where((e) => e.id == event.friend.id).first);
+    emit(FriendState(friends));
+
+    debugPrint(response.body);
   }
 
 }

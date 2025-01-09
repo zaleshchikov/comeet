@@ -1,6 +1,10 @@
 import 'package:comeet/UI/user_card/card_progress_containers.dart';
+import 'package:comeet/bloc/friends/friend_bloc.dart';
+import 'package:comeet/bloc/recommended_users/recommended_users_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/users/friend_model.dart';
 import '../../models/users/user_model.dart';
 
 class CardInfo extends StatelessWidget {
@@ -15,6 +19,10 @@ class CardInfo extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
 
+    return BlocBuilder<RecommendedUsersBloc, RecommendedUsersState>(
+  builder: (context, state) {
+    return BlocBuilder<FriendBloc, FriendState>(
+  builder: (context, fstate) {
     return Container(
       padding: EdgeInsets.all(size.height/50),
       height: size.height/2.3,
@@ -50,15 +58,35 @@ class CardInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: size.height/15,
-                width: size.height/15,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(color: Colors.white, width: 3),
-                  shape: BoxShape.circle
+              InkWell(
+                onTap: (){
+                  fstate.friends
+                      .map((e) => e.id)
+                      .contains(card.id)
+                      ? BlocProvider.of<FriendBloc>(
+                      context)
+                      .add(DeleteFriend(
+                      Friend.friendFromUser(
+                          card)))
+                      : BlocProvider.of<FriendBloc>(
+                      context)
+                      .add(AddFriend(
+                      Friend.friendFromUser(
+                          card)));
+                },
+                child: Container(
+                  height: size.height/15,
+                  width: size.height/15,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(color: Colors.white, width: 3),
+                    shape: BoxShape.circle
+                  ),
+                  child: Icon(fstate.friends
+                      .map((e) => e.id)
+                      .contains(
+                      card.id) ? Icons.check : Icons.add, color: Colors.white, size: size.height/20,),
                 ),
-                child: Icon(Icons.add, color: Colors.white, size: size.height/20,),
               ),
               Container(
                 height: size.height/15,
@@ -77,5 +105,9 @@ class CardInfo extends StatelessWidget {
         ],
       ),
     );
+  },
+);
+  },
+);
   }
 }

@@ -7,6 +7,7 @@ import 'package:comeet/UI/profile/profile/profile_back.dart';
 import 'package:comeet/UI/profile/profile/test_grid/test_grid.dart';
 import 'package:comeet/bloc/profile/profile_bloc.dart';
 import 'package:comeet/models/users/user_model.dart';
+import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,9 +98,6 @@ class _EditProfileSCreenState extends State<EditProfileSCreen> {
                                                   },
                                                   style: theme.textTheme.titleSmall,
                                                   cursorColor: Colors.white,
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                  ),
                                                   formControlName: 'name',
                                                 )),
                                             //Text(widget.profile.name, style: theme.textTheme.titleSmall)),
@@ -113,9 +111,6 @@ class _EditProfileSCreenState extends State<EditProfileSCreen> {
                                                   style: theme.textTheme.bodyLarge!
                                                       .copyWith(color: Colors.white),
                                                   cursorColor: Colors.white,
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                  ),
                                                   formControlName: 'profession',
                                                 )),
                                           ],
@@ -123,52 +118,75 @@ class _EditProfileSCreenState extends State<EditProfileSCreen> {
                                       ],
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () async {
-                                      ImagePicker picker = ImagePicker();
-                                      XFile? image = await picker.pickImage(
-                                          source: ImageSource.gallery, imageQuality: 50);
-                                      imageBytes = await image!.readAsBytes();
-                                      setState(() {
-                                        imageBytes = imageBytes;
-                                      });
-                                    },
-                                    child: Container(
-                                      height: size.width * 0.85,
-                                      width: size.width * 0.8,
-                                      padding: EdgeInsets.all(size.height / 100),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(30)),
+                                  Container(
+                                    height: size.width * 0.85,
+                                    width: size.width * 0.8,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        ImagePicker picker = ImagePicker();
+                                        XFile? image = await picker.pickImage(
+                                            source: ImageSource.gallery, imageQuality: 50);
+                                        imageBytes = await image!.readAsBytes();
+                                        setState(() {
+                                          imageBytes = imageBytes;
+                                        });
+                                      },
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20),
-                                            image: DecorationImage(
-                                                image: imageBytes != null
-                                                    ? MemoryImage(
-                                                        Uint8List.fromList(imageBytes))
-                                                    : widget.profile.photo == "" ? AssetImage('assets/test_images/test1.jpeg') : MemoryImage(base64Decode(widget.profile.photo)),
-                                                fit: BoxFit.cover)),
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: size.width * 0.85,
+                                                width: size.width * 0.8,
+                                                padding: EdgeInsets.all(size.height / 100),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(30)),
+                                                child: Center(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(20),
+                                                        image: DecorationImage(
+                                                            image: imageBytes != null
+                                                                ? MemoryImage(
+                                                                    Uint8List.fromList(imageBytes))
+                                                                : widget.profile.photo == "" ? AssetImage('assets/test_images/test1.jpeg') : MemoryImage(base64Decode(widget.profile.photo)),
+                                                            fit: BoxFit.cover)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Center(
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: Icon(Icons.edit, size: size.height/8, color: Colors.white,),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                   Container(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: size.width * 0.1),
-                                      height: size.height / 8,
+                                      height: size.height / 6,
                                       child: Center(
                                         child: ReactiveTextField(
-                                          textAlign: TextAlign.center,
+
+                                          textAlign: TextAlign.start,
                                           validationMessages: {
                                             ValidationMessage.required: (error) =>
                                                 'Поле не может быть пустым',
                                           },
-                                          style: theme.textTheme.bodyLarge!
-                                              .copyWith(color: Color(0xff8993A6)),
-                                          cursorColor: Colors.white,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
+                                          style: theme.textTheme.bodyLarge!.copyWith(
+                                              color: Color(0xff8993A6),
+                                               height: 0.9
                                           ),
+                                          cursorColor: bottomNavigationColorDark,
+                                          maxLines: 4,
                                           formControlName: 'description',
                                         ),
                                       )),

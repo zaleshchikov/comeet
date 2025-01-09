@@ -27,8 +27,9 @@ Future<void> updateToken() async {
 }
 
 Color getColorFromString(String color){
-    if(color == '' || color == 'color') return getRandomColor();
-    return Color(int.parse(color.substring(10, color.length-2), radix: 16) + 0xFF000000);
+    if(color == '' || color.startsWith('Color')) return getRandomColor();
+    int value = int.parse('FF'+color, radix: 16);
+    return Color(value);
 }
 
 Future<String> getToken() async {
@@ -48,6 +49,8 @@ final headersMedial = {'content-type': 'application/x-www-form-urlencoded'};
 const myProfile = '$mainUrl/api/user/me';
 const profile = '$mainUrl/api/user';
 const addFriend = '$mainUrl/api/user/addFriend/';
+const deleteFriend = '$mainUrl/api/user/deleteFriend/';
+
 const testPreview = '$mainUrl/api/test/previews';
 const testResultURL = '$mainUrl/api/test/testResult';
 const test = '$mainUrl/api/test/';
@@ -55,8 +58,9 @@ const test = '$mainUrl/api/test/';
 const allTag = '$mainUrl/api/tag/all';
 const tag = '$mainUrl/api/tag/';
 const myTag = '$mainUrl/api/tag/my';
-
 const findUser = '$mainUrl/api/user/find';
+
+const recommendedUsers = '$mainUrl/api/user/recommended';
 const friendURL = '$mainUrl/api/user/friends';
 const registerURL = '$mainUrl/api/auth/register';
 const publicMedia = '$mainUrl/public_goal/set_primary_image/';
@@ -66,6 +70,9 @@ const mainUrl = 'http://84.201.181.110:8081';
 const registerNewUserUrl = '$mainUrl/api/auth/register';
 const loginUrl = '$mainUrl/api/auth/login';
 const allEvent = '$mainUrl/api/event';
+const subscribeEvent = '$mainUrl/api/event/subscribe/';
+const unSubscribeEvent = '$mainUrl/api/event/unsubscribe/';
+
 const myEvent = '$mainUrl/api/event/my';
 const logoutUrl = '$mainUrl/auth/jwt/logout';
 const forgotPassword = '$mainUrl/auth/forgot-password';
