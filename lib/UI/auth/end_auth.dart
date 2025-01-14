@@ -5,6 +5,7 @@ import 'package:comeet/UI/profile/profile/profile_screen.dart';
 import 'package:comeet/UI/start_screen/message.dart';
 import 'package:comeet/UI/start_screen/message_widget.dart';
 import 'package:comeet/UI/start_screen/swiping_screen.dart';
+import 'package:comeet/UI/tests/start_test/start_start_test.dart';
 import 'package:comeet/bloc/sign_up/sign_up_bloc.dart';
 import 'package:comeet/bloc/sign_up/sign_up_form.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class _EmailDataSCreen extends State<EndAuth> {
         listener: (context, state) {
           if (state.isSuccessRequest) {
             Navigator.of(context).push(
-                SlideAnimationRoute(BottomNavigationScreen(ProfileScreen())));
+                SlideAnimationRoute(StartTestStartScreen()));
           }
         },
         child: Scaffold(

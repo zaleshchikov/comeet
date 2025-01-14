@@ -39,8 +39,8 @@ void main() async {
   //   await pref.setString('refreshToken',
   //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjhhMjBjMThkLTkxNzAtNDFjOS1hNmNhLTMyOGE4MjU1NmJkMSIsImlhdCI6MTczMzY3NDc5OCwiZXhwIjoxNzM4ODU4Nzk4fQ.AXpj7yF3E7wCv8yj9I_sdC9YbI60ruDfVP_m-o3cF6E');
   // }
-    // await pref.setString('refreshToken',
-    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjgzYjM3OTM2LTAzMDktNGM5NS1iNzQ5LTFhYzBjOTI4YjRmMCIsImlhdCI6MTczMzY4NTk1MywiZXhwIjoxNzM4ODY5OTUzfQ.KbUjN3a2QzeiXJ_ZH2Xq7IM2J7mGm7Fhr1vGwyj4U7E');
+  // await pref.setString('refreshToken',
+  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2ViMjAwMS1hMWI1LTQ0YTAtOWMwMS03NDA5YjBlYmQ2NTkiLCJpZCI6IjgzYjM3OTM2LTAzMDktNGM5NS1iNzQ5LTFhYzBjOTI4YjRmMCIsImlhdCI6MTczMzY4NTk1MywiZXhwIjoxNzM4ODY5OTUzfQ.KbUjN3a2QzeiXJ_ZH2Xq7IM2J7mGm7Fhr1vGwyj4U7E');
   // var response = await http.post(
   //     Uri.parse(loginUrl),
   //     headers: headersUrlencoded,
@@ -53,10 +53,11 @@ void main() async {
   //   await pref.setString('accessToken', resBody['accessToken']);
   //   await pref.setString('refreshToken', resBody['refreshToken']);
 
-
   var startWidget = pref.getString('accessToken') == null
       ? StartScreen()
-      : BottomNavigationScreen(ProfileScreen());
+      : pref.getBool('startTest') ?? false
+          ? BottomNavigationScreen(ProfileScreen())
+          : StartTestStartScreen();
   runApp(MyApp(startWidget));
 }
 
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final fontHeight = height / 852;
     return MaterialApp(
+      color: Colors.transparent,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -117,7 +119,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home:StartQuestionsScreen()
-    );
+        home: startWidget);
   }
 }

@@ -45,6 +45,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       ProfileScreen(),
       widget.body
     ];
+    bottomColor = _selectedIndex == 1
+        ? Colors.white
+        : bottomNavigationColorDark;
     bottomColor = widget.body.toString() == 'CardScreen'
         ? Colors.white
         : bottomNavigationColorDark;
@@ -67,6 +70,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bottomColor = _selectedIndex == 1
+        ? Colors.white
+        : bottomNavigationColorDark;
     var theme = Theme.of(context);
     var size = MediaQuery.of(context).size;
 

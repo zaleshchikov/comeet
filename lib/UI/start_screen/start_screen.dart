@@ -35,6 +35,15 @@ class _StartScreenState extends State<StartScreen> {
     final width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
 
+    if(widget.secondWay){
+      messages = [
+        ChatMessage(
+            messageContent:
+            "Да, в мафию. Если захочешь, конечно. Психологические тесты, сортировка коллег по интересам.. Да что я все о себе да о себе - твоя очередь. Расскажешь, кто ты?",
+            messageType: "receiver"),
+      ];
+    }
+
     return Scaffold(
         body: Column(
       children: [
@@ -104,19 +113,26 @@ class _StartScreenState extends State<StartScreen> {
                 Center(
                     child: InkWell(
                   onTap: () async {
+                    if(userPhrases[widget.messageIndex] == 'Пойдем'){
+                      Navigator.of(context)
+                          .push(SlideAnimationRoute(SlideScreen()));
+                    }
+
+                    if (widget.secondWay || userPhrases[widget.messageIndex] == 'Полетели') {
+                      Navigator.of(context)
+                          .push(SlideAnimationRoute(BlocProvider(
+                        create: (BuildContext context) => SignUpBloc(),
+                        child: SignUpScreen(),
+                      )));
+                      return;
+                    }
+
                     if(widget.isClickable) {
                       setState(() {
                         widget.isClickable = false;
                       });
 
-                      if (widget.secondWay) {
-                        Navigator.of(context)
-                            .push(SlideAnimationRoute(BlocProvider(
-                          create: (BuildContext context) => SignUpBloc(),
-                          child: SignUpScreen(),
-                        )));
-                        return;
-                      }
+
                       if (widget.messageIndex != 3) {
                         setState(() {
                           widget.isClickable = false;
@@ -141,26 +157,12 @@ class _StartScreenState extends State<StartScreen> {
                         }
                         widget.messageIndex++;
                       });
-                      if (widget.messageIndex == 2) {
-                        await Future.delayed(Duration(milliseconds: 1500));
-                        messages = [
-                          ChatMessage(
-                              messageContent:
-                              "Да, в мафию. Если захочешь, конечно. Психологические тесты, сортировка коллег по интересам.. Да что я все о себе да о себе - твоя очередь. Расскажешь, кто ты?",
-                              messageType: "receiver"),
-                        ];
-                        Navigator.of(context)
-                            .push(SlideAnimationRoute(SlideScreen()));
-                      }
+
                       setState(() {
                         widget.isClickable = true;
                       });
                     }},
-                  child: widget.messageIndex == 2
-                      ? Container(
-                          height: height / 15,
-                        )
-                      : Container(
+                  child: Container(
                           decoration: BoxDecoration(
                               color: theme.cardColor,
                               borderRadius: BorderRadius.circular(50)),
@@ -178,13 +180,13 @@ class _StartScreenState extends State<StartScreen> {
                 )),
               ]),
         ),
-        widget.messageIndex == 0 && !widget.secondWay
+        !widget.secondWay
             ? Row(
                 children: [
                   Container(
                     width: width * 0.1,
                   ),
-                  InkWell(
+                  GestureDetector(
                       onTap: () {
                         Navigator.of(context)
                             .push(SlideAnimationRoute(LogInScreen()));

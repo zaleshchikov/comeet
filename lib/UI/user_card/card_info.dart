@@ -19,8 +19,6 @@ class CardInfo extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
 
-    return BlocBuilder<RecommendedUsersBloc, RecommendedUsersState>(
-  builder: (context, state) {
     return BlocBuilder<FriendBloc, FriendState>(
   builder: (context, fstate) {
     return Container(
@@ -107,7 +105,6 @@ class CardInfo extends StatelessWidget {
     );
   },
 );
-  },
-);
+
   }
 }

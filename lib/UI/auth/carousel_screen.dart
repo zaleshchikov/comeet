@@ -246,7 +246,7 @@ class _CarouselScreen extends State<CarouselScreen> {
             ),
 
             Center(
-                child: InkWell(
+                child: GestureDetector(
               onTap: () async {
                 Navigator.of(context).push(SlideAnimationRoute(BlocProvider.value(
                     value: BlocProvider.of<SignUpBloc>(context),

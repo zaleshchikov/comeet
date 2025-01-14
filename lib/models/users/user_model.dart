@@ -17,7 +17,7 @@ class User{
 
   static User fromJsom(data){
     
-    return User(data['name'] ?? 'Работяга без имени', data['description'] ?? 'Работяга без описания', 'assets/test_images/test1.jpeg', data['profession'] ?? 'Работяга', data['id'] ?? '', color: getColorFromString(data['color']));
+    return User(data['name'] ?? 'Работяга без имени', data['description'] ?? 'Работяга без описания', data["image"] ?? '', data['profession'] ?? 'Работяга', data['id'] ?? '', color: getColorFromString(data['color']));
   }
 
   static List<User> getEventsFromJson(String jsonData){

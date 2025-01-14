@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:comeet/UI/animation/animation_one.dart';
 import 'package:comeet/UI/user_card/card_screen.dart';
 import 'package:comeet/UI/user_card/user_card.dart';
@@ -78,8 +80,14 @@ class FriendsCards extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             image: DecorationImage(
-                                                image: AssetImage(
-                                                    state.cards[index].photo),
+                                                image: state.cards[index]
+                                                            .photo ==
+                                                        ""
+                                                    ? AssetImage(
+                                                        'assets/test_images/test1.jpeg')
+                                                    : MemoryImage(base64Decode(
+                                                        state.cards[index]
+                                                            .photo)),
                                                 fit: BoxFit.cover)),
                                       ),
                                       Container(

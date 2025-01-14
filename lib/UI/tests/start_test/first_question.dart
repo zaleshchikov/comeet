@@ -114,6 +114,9 @@ class _FirstStartQuestionState extends State<FirstStartQuestion> {
                           )),
                       InkWell(
                         onTap: () {
+
+
+
                           BlocProvider.of<StartTestBloc>(context)
                               .add(SetTags(answers));
                           answers = [];

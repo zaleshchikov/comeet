@@ -30,7 +30,7 @@ class _EventCardsState extends State<EventCards> {
         child: ListView.builder(
             padding: EdgeInsets.zero,
             itemCount: state.events.length,
-            itemBuilder: (context1, index) => InkWell(
+            itemBuilder: (context1, index) => GestureDetector(
                   onTap: () {
                     showBottomSheet(
                       enableDrag: true,
@@ -81,6 +81,7 @@ class _EventCardsState extends State<EventCards> {
                                 ),
                           Container(
                             width: size.width / 3,
+                            height: size.height/7,
                             padding: EdgeInsets.symmetric(
                                 vertical: size.height / 100),
                             child: Column(
@@ -90,7 +91,7 @@ class _EventCardsState extends State<EventCards> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      width: size.width / 4,
+                                      width: size.width / 3,
                                       child: Text(state.events[index].name,
                                           textAlign: TextAlign.center,
                                           style: theme.textTheme.bodyMedium!
@@ -118,7 +119,7 @@ class _EventCardsState extends State<EventCards> {
                               ],
                             ),
                           ),
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               setState(() {
                                 state.events[index].isLiked ? BlocProvider.of<EventBloc>(context).add(UnSubscribeEvent(state.events[index])) :

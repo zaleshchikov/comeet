@@ -7,11 +7,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/events/event_model.dart';
 
-class EventBottomSheet extends StatelessWidget {
+class EventBottomSheet extends StatefulWidget {
   Event event;
 
   EventBottomSheet(this.event);
 
+  @override
+  State<EventBottomSheet> createState() => _EventBottomSheetState();
+}
+
+class _EventBottomSheetState extends State<EventBottomSheet> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -25,7 +30,7 @@ class EventBottomSheet extends StatelessWidget {
             width: size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: event.color,
+              color: widget.event.color,
             ),
             padding: EdgeInsets.zero,
             height: size.height / 2,
@@ -87,7 +92,7 @@ class EventBottomSheet extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                    '${event.dateStart.day.toString().padLeft(2, '0')}.${event.dateStart.month.toString().padLeft(2, '0')}',
+                                    '${widget.event.dateStart.day.toString().padLeft(2, '0')}.${widget.event.dateStart.month.toString().padLeft(2, '0')}',
                                     style: theme.textTheme.labelLarge!
                                         .copyWith(color: Colors.white))
                               ],
@@ -110,8 +115,8 @@ class EventBottomSheet extends StatelessWidget {
                               crossAxisCount: 7,
                             ),
                             children: List<Widget>.generate(
-                                DateTime(event.dateStart.year,
-                                        event.dateStart.month + 1, 0)
+                                DateTime(widget.event.dateStart.year,
+                                        widget.event.dateStart.month + 1, 0)
                                     .day,
                                 (int index) => Container(
                                       height: size.width / 12,
@@ -121,7 +126,7 @@ class EventBottomSheet extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                           color:
-                                              index == (event.dateStart.day - 1)
+                                              index == (widget.event.dateStart.day - 1)
                                                   ? bottomNavigationColorDark
                                                   : Colors.white),
                                       child: Center(
@@ -130,7 +135,7 @@ class EventBottomSheet extends StatelessWidget {
                                           style: theme.textTheme.labelLarge!
                                               .copyWith(
                                                   color: index !=
-                                                          (event.dateStart.day -
+                                                          (widget.event.dateStart.day -
                                                               1)
                                                       ? bottomNavigationColorDark
                                                       : Colors.white),
@@ -164,7 +169,7 @@ class EventBottomSheet extends StatelessWidget {
                               crossAxisCount: 3,
                             ),
                             children: List<Widget>.generate(
-                                event.people.length,
+                                widget.event.people.length,
                                 (int index) => Container(
                                       height: size.height / 10,
                                       width: size.height / 12,
@@ -182,12 +187,12 @@ class EventBottomSheet extends StatelessWidget {
                                                 color: Colors.white,
                                                 image: DecorationImage(
                                                     image: MemoryImage(
-                                                        base64Decode(event
+                                                        base64Decode(widget.event
                                                             .people[index]
                                                             .photo)))),
                                           ),
                                           Text(
-                                            event.people[index].name,
+                                            widget.event.people[index].name,
                                             style: theme.textTheme.labelLarge,
                                           )
                                         ],
@@ -199,7 +204,12 @@ class EventBottomSheet extends StatelessWidget {
                   Center(
                     child: InkWell(
                       onTap: (){
-                        BlocProvider.of<EventBloc>(context).add(SubscribeEvent(event));
+                        widget.event.isLiked ? BlocProvider.of<EventBloc>(context).add(UnSubscribeEvent(widget.event)) :
+                        BlocProvider.of<EventBloc>(context).add(SubscribeEvent(widget.event));
+
+                        setState(() {
+                          widget.event.isLiked = !widget.event.isLiked;
+                        });
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -209,7 +219,7 @@ class EventBottomSheet extends StatelessWidget {
                         width: size.width * 0.8,
                         child: Center(
                           child: Text(
-                            'Посетить',
+                            widget.event.isLiked ? 'Вы записались' : 'Посетить',
                             style: theme.textTheme.titleSmall,
                           ),
                         ),

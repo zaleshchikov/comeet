@@ -1,4 +1,5 @@
 import 'package:comeet/UI/tests/question_screen.dart';
+import 'package:comeet/UI/tests/start_test/start_questions.dart';
 import 'package:comeet/bloc/test/test/test_bloc.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
@@ -63,9 +64,7 @@ class StartTestStartScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(SlideAnimationRoute(
-                          BlocProvider.value(
-                              value: BlocProvider.of<TestBloc>(context),
-                              child: QuestionScreen())));
+                          StartQuestionsScreen()));
                     },
                     child: Container(
                       padding: EdgeInsets.all(size.height/100),

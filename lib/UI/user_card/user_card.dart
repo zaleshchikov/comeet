@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../../models/users/user_model.dart';
@@ -7,7 +9,6 @@ import 'card_info.dart';
 class UserCardScreen extends StatelessWidget {
   User user;
 
-
   UserCardScreen(this.user);
 
   @override
@@ -16,7 +17,6 @@ class UserCardScreen extends StatelessWidget {
     var theme = Theme.of(context);
 
     return Material(
-      
       child: Scaffold(
         body: Stack(
           children: [
@@ -25,17 +25,21 @@ class UserCardScreen extends StatelessWidget {
               height: size.height,
               color: theme.cardColor,
             ),
-        
             Container(
               width: size.width,
               height: size.height / 2,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(user.photo), fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(50), color: Colors.white),
+                  image: DecorationImage(
+                      image: user.photo == ''
+                          ? AssetImage('assets/test_images/test1.jpeg')
+                          : MemoryImage(base64Decode(user.photo)),
+                      fit: BoxFit.cover),
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white),
             ),
             Padding(
-              padding:
-              EdgeInsets.only(top: size.height * 0.3, left: size.width * 0.8),
+              padding: EdgeInsets.only(
+                  top: size.height * 0.3, left: size.width * 0.8),
               child: Container(
                 height: size.height / 5,
                 child: Column(
@@ -47,7 +51,8 @@ class UserCardScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: colorBlue,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Center(child: Text('M', style: theme.textTheme.bodyLarge)),
+                      child: Center(
+                          child: Text('M', style: theme.textTheme.bodyLarge)),
                     ),
                     Container(
                       height: size.height / 15,
@@ -55,20 +60,20 @@ class UserCardScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: colorBlue,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Center(child: Text('Т', style: theme.textTheme.bodyLarge)),
+                      child: Center(
+                          child: Text('Т', style: theme.textTheme.bodyLarge)),
                     ),
-        
                   ],
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: size.height*0.5),
+              padding: EdgeInsets.only(top: size.height * 0.5),
               child: CardInfo(user),
             ),
             Container(
               padding:
-              EdgeInsets.only(top: size.height / 20, left: size.width / 20),
+                  EdgeInsets.only(top: size.height / 20, left: size.width / 20),
               child: IconButton(
                 icon: ImageIcon(AssetImage('assets/icons/back_icon.png'),
                     size: size.height / 20),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:comeet/UI/animation/animation_one.dart';
 import 'package:comeet/bloc/friends/friend_bloc.dart';
 import 'package:comeet/models/users/friend_model.dart';
@@ -61,10 +63,15 @@ class FriendList extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
                                           image: DecorationImage(
-                                              image: AssetImage(
-                                                  state.friends[index].photo),
-                                              fit: BoxFit.cover)),
-                                    ),
+                                              image: state.friends[index]
+                                                  .photo ==
+                                                  ""
+                                                  ? AssetImage(
+                                                  'assets/test_images/test1.jpeg')
+                                                  : MemoryImage(base64Decode(
+                                                  state.friends[index]
+                                                      .photo)), fit: BoxFit.cover),
+                                    )),
                                     Center(
                                       child: Container(
                                         width: size.height / 6,

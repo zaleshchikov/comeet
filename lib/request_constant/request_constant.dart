@@ -27,7 +27,7 @@ Future<void> updateToken() async {
 }
 
 Color getColorFromString(String color){
-    if(color == '' || color.startsWith('Color')) return getRandomColor();
+    if(color == '' || color.contains('Color')) return getRandomColor();
     int value = int.parse('FF'+color, radix: 16);
     return Color(value);
 }

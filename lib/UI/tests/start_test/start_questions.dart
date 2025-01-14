@@ -3,8 +3,7 @@ import 'package:comeet/UI/tests/start_test/first_question.dart';
 import 'package:comeet/bloc/start_test/start_test_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../request_constant/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../animation/animation_one.dart';
 import '../../profile/profile/profile_screen.dart';
 
@@ -136,22 +135,24 @@ class _StartQuestionsScreenState extends State<StartQuestionsScreen> {
         create: (context) => StartTestBloc(),
         child: Builder(builder: (context) {
           return BlocListener<StartTestBloc, StartTestState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 if (state.successRequest) {
                   if (index == 10) {
+                    SharedPreferences pref = await SharedPreferences.getInstance();
+                    pref.setBool('startTest', true);
                     showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
 
                               title: Container(
-                                height: size.height/4,
+                                height: size.height/8,
                                 width: size.width*0.8,
                                 child: Center(
-                                    child: Text("Вы успешно прошли первый тест")),
+                                    child: Text(textAlign: TextAlign.center, "Вы успешно прошли первый тест")),
                               ),
                               content: Container(
                                 width: size.width*0.8,
-                                height: size.height/2.4,
+                                height: size.height/6,
                                 child: Center(
                                     child: Text(
                                         "Можете перейти к заполнению профиля и ознакомлению с возможностями приложения")),
