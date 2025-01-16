@@ -24,7 +24,7 @@ class _EventBottomSheetState extends State<EventBottomSheet> {
     return DraggableScrollableSheet(
         snapAnimationDuration: Duration(seconds: 4),
         initialChildSize: 0.5,
-        maxChildSize: 0.8,
+        maxChildSize: 0.55,
         builder: (context, _) {
           return Container(
             width: size.width,
@@ -145,64 +145,8 @@ class _EventBottomSheetState extends State<EventBottomSheet> {
                       ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: size.width/20),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Записавшиеся\nлюди:',
-                          style: theme.textTheme.bodyLarge!.copyWith(color: bottomNavigationColorDark),
-                        ),
-                      ],
-                    ),
-                  ),
                   Center(
-                    child: Container(
-                      padding: EdgeInsets.all(size.height / 50),
-                      width: size.width,
-                      height: size.height / 5,
-                      child: Center(
-                        child: GridView(
-                            scrollDirection: Axis.horizontal,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                            ),
-                            children: List<Widget>.generate(
-                                widget.event.people.length,
-                                (int index) => Container(
-                                      height: size.height / 10,
-                                      width: size.height / 12,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Container(
-                                            height: size.height / 12,
-                                            width: size.height / 12,
-                                            margin: EdgeInsets.all(
-                                                size.height / 100),
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.white,
-                                                image: DecorationImage(
-                                                    image: MemoryImage(
-                                                        base64Decode(widget.event
-                                                            .people[index]
-                                                            .photo)))),
-                                          ),
-                                          Text(
-                                            widget.event.people[index].name,
-                                            style: theme.textTheme.labelLarge,
-                                          )
-                                        ],
-                                      ),
-                                    ))),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: (){
                         widget.event.isLiked ? BlocProvider.of<EventBloc>(context).add(UnSubscribeEvent(widget.event)) :
                         BlocProvider.of<EventBloc>(context).add(SubscribeEvent(widget.event));

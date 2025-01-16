@@ -111,7 +111,7 @@ class _StartScreenState extends State<StartScreen> {
                   ),
                 ),
                 Center(
-                    child: InkWell(
+                    child: GestureDetector(
                   onTap: () async {
                     if(userPhrases[widget.messageIndex] == 'Пойдем'){
                       Navigator.of(context)

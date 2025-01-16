@@ -5,7 +5,6 @@ import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../animation/animation_one.dart';
 
 
@@ -61,10 +60,10 @@ class StartTestStartScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         )),
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(SlideAnimationRoute(
-                          StartQuestionsScreen()));
+                      Navigator.of(context).pushAndRemoveUntil(SlideAnimationRoute(
+                          StartQuestionsScreen()), (route) => false);
                     },
                     child: Container(
                       padding: EdgeInsets.all(size.height/100),

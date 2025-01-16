@@ -122,7 +122,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             Container(height: size.height / 30),
                             ReactiveFormConsumer(
                                 builder: (context, form, child) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   form.markAllAsTouched();
 
@@ -156,7 +156,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               );
                             }),
                             Container(height: size.height / 100),
-                            InkWell(
+                            GestureDetector(
                               onTap: () {
                                 Navigator.of(context).push(
                                     SlideAnimationRoute(RecoverPassword()));

@@ -56,7 +56,7 @@ class CardInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
+              GestureDetector(
                 onTap: (){
                   fstate.friends
                       .map((e) => e.id)

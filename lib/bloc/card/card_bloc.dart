@@ -61,7 +61,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     var token = await getToken();
 
     var response = await http.get(
-      Uri.parse(findUser + '?email=${event.pattern}'),
+      Uri.parse(findUser + '?name=${event.pattern}'),
       headers: JsonContentHeaders(token),
     );
 

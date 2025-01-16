@@ -16,7 +16,6 @@ class CarouselScreen extends StatefulWidget {
   var emailLabelText = 'Почта';
   var passwordLabelText = 'Телефон';
 
-
   bool secondWay;
 
   CarouselScreen({this.secondWay = false});
@@ -70,213 +69,276 @@ class _CarouselScreen extends State<CarouselScreen> {
         );
 
     return BlocBuilder<SignUpBloc, SignUpState>(
-  builder: (context, state) {
-    return Scaffold(
-          body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                progressCircle(true, 1),
-                progressContainer(1),
-                progressCircle(true, 2),
-                progressContainer(0.5),
-                progressCircle(false, 3),
-              ],
-            ),
-            Container(
-              height: height/1.8,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      builder: (context, state) {
+        return Scaffold(
+            body: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: width/20),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text('Возраст:', style: theme.textTheme.bodySmall!.copyWith(color: Colors.black.withOpacity(0.5)))
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text('${state.yearsOld}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
-                          ],
-                        ),
-                        Center(
-                          child: Image.asset('assets/meme/r.png', height: height/50,),
-                        ),
-                        CarouselSlider.builder(
-                            carouselController: carouselController,
-                            options: CarouselOptions(
-                                onPageChanged: (index, _) {
-                                  BlocProvider.of<SignUpBloc>(context).add(ChangeYearsOld(index));
-
-                                },
-                              height: height / 20,
-                              aspectRatio: 1 / 50,
-                              viewportFraction: 0.025,
-                              initialPage: state.yearsOld,
-                            ),
-                            itemCount: 100,
-                            itemBuilder: (BuildContext context, int itemIndex,
-                                    int pageViewIndex) =>
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.zero,
-                                      width: width / 200,
-                                      height:
-                                          itemIndex % 5 == 0 ? height / 30 : height / 50,
-                                      decoration: BoxDecoration(
-                                          color: ((itemIndex - 2 <= state.yearsOld) &&
-                                                  (itemIndex + 2 >= state.yearsOld))
-                                              ? state.yearsOld == itemIndex ? theme.canvasColor : theme.focusColor
-                                              : theme.canvasColor.withOpacity(0.3)),
-                                    ),
-                                  ],
-                                )),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: width/20),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text('Опыт работы в годах:', style: theme.textTheme.bodySmall!.copyWith(color: Colors.black.withOpacity(0.5)))
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text('${state.yearsOfWorking}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
-                          ],
-                        ),
-                        Center(
-                          child: Image.asset('assets/meme/r.png', height: height/50,),
-                        ),
-                        CarouselSlider.builder(
-                            carouselController: carouselController,
-                            options: CarouselOptions(
-                              onPageChanged: (index, _) {
-                                BlocProvider.of<SignUpBloc>(context).add(ChangeYearsOfWorkingOld(index));
-                              },
-                              height: height / 20,
-                              aspectRatio: 1 / 50,
-                              viewportFraction: 0.025,
-                              initialPage: state.yearsOfWorking,
-                            ),
-                            itemCount: 100,
-                            itemBuilder: (BuildContext context, int itemIndex,
-                                int pageViewIndex) =>
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.zero,
-                                      width: width / 200,
-                                      height:
-                                      itemIndex % 5 == 0 ? height / 30 : height / 50,
-                                      decoration: BoxDecoration(
-                                          color: ((itemIndex - 2 <= state.yearsOfWorking) &&
-                                              (itemIndex + 2 >= state.yearsOfWorking))
-                                              ? state.yearsOfWorking == itemIndex ? theme.canvasColor : theme.focusColor
-                                              : theme.canvasColor.withOpacity(0.3)),
-                                    ),
-                                  ],
-                                )),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: width/20),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text('Рост в см:', style: theme.textTheme.bodySmall!.copyWith(color: Colors.black.withOpacity(0.5)))
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text('${state.humanHeight}', style: theme.textTheme.titleSmall!.copyWith(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w300),)
-                          ],
-                        ),
-                        Center(
-                          child: Image.asset('assets/meme/r.png', height: height/50,),
-                        ),
-                        CarouselSlider.builder(
-                            carouselController: carouselController,
-                            options: CarouselOptions(
-                              onPageChanged: (index, _) {
-                                BlocProvider.of<SignUpBloc>(context).add(ChangeHeight(index));
-                              },
-                              height: height / 20,
-                              aspectRatio: 1 / 50,
-                              viewportFraction: 0.025,
-                              initialPage: state.humanHeight,
-                            ),
-                            itemCount: 300,
-                            itemBuilder: (BuildContext context, int itemIndex,
-                                int pageViewIndex) =>
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.zero,
-                                      width: width / 200,
-                                      height:
-                                      itemIndex % 5 == 0 ? height / 30 : height / 50,
-                                      decoration: BoxDecoration(
-                                          color: ((itemIndex - 2 <= state.humanHeight) &&
-                                              (itemIndex + 2 >= state.humanHeight))
-                                              ? state.humanHeight == itemIndex ? theme.canvasColor : theme.focusColor
-                                              : theme.canvasColor.withOpacity(0.3)),
-                                    ),
-                                  ],
-                                )),
-                      ],
-                    ),
-                  )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  progressCircle(true, 1),
+                  progressContainer(1),
+                  progressCircle(true, 2),
+                  progressContainer(0.5),
+                  progressCircle(false, 3),
                 ],
               ),
-            ),
-
-            Center(
-                child: GestureDetector(
-              onTap: () async {
-                Navigator.of(context).push(SlideAnimationRoute(BlocProvider.value(
-                    value: BlocProvider.of<SignUpBloc>(context),
-                    child:EndAuth())));
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: theme.primaryColor,
-                    borderRadius: BorderRadius.circular(50)),
-                height: height / 15,
-                width: width * 0.9,
-                child: Center(
-                  child: BlocProvider.of<SignUpBloc>(context).state.isLoading
-                      ? Center(
-                          child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(
-                                color: theme.textTheme.titleSmall!.color,
-                              )))
-                      : Text(
-                          'Долго еще?',
-                          style: theme.textTheme.titleSmall,
-                        ),
+              Container(
+                height: height / 1.8,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: width / 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text('Возраст:',
+                                  style: theme.textTheme.bodySmall!.copyWith(
+                                      color: Colors.black.withOpacity(0.5)))
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${state.yearsOld}',
+                                style: theme.textTheme.titleSmall!.copyWith(
+                                    color: Colors.black.withOpacity(0.8),
+                                    fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
+                          Center(
+                            child: Image.asset(
+                              'assets/meme/r.png',
+                              height: height / 50,
+                            ),
+                          ),
+                          CarouselSlider.builder(
+                              carouselController: carouselController,
+                              options: CarouselOptions(
+                                onPageChanged: (index, _) {
+                                  BlocProvider.of<SignUpBloc>(context)
+                                      .add(ChangeYearsOld(index));
+                                },
+                                height: height / 20,
+                                aspectRatio: 1 / 50,
+                                viewportFraction: 0.025,
+                                initialPage: state.yearsOld,
+                              ),
+                              itemCount: 100,
+                              itemBuilder: (BuildContext context, int itemIndex,
+                                      int pageViewIndex) =>
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.zero,
+                                        width: width / 200,
+                                        height: itemIndex % 5 == 0
+                                            ? height / 30
+                                            : height / 50,
+                                        decoration: BoxDecoration(
+                                            color: ((itemIndex - 2 <=
+                                                        state.yearsOld) &&
+                                                    (itemIndex + 2 >=
+                                                        state.yearsOld))
+                                                ? state.yearsOld == itemIndex
+                                                    ? theme.canvasColor
+                                                    : theme.focusColor
+                                                : theme.canvasColor
+                                                    .withOpacity(0.3)),
+                                      ),
+                                    ],
+                                  )),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: width / 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text('Опыт работы в годах:',
+                                  style: theme.textTheme.bodySmall!.copyWith(
+                                      color: Colors.black.withOpacity(0.5)))
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${state.yearsOfWorking}',
+                                style: theme.textTheme.titleSmall!.copyWith(
+                                    color: Colors.black.withOpacity(0.8),
+                                    fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
+                          Center(
+                            child: Image.asset(
+                              'assets/meme/r.png',
+                              height: height / 50,
+                            ),
+                          ),
+                          CarouselSlider.builder(
+                              carouselController: carouselController,
+                              options: CarouselOptions(
+                                onPageChanged: (index, _) {
+                                  BlocProvider.of<SignUpBloc>(context)
+                                      .add(ChangeYearsOfWorkingOld(index));
+                                },
+                                height: height / 20,
+                                aspectRatio: 1 / 50,
+                                viewportFraction: 0.025,
+                                initialPage: state.yearsOfWorking,
+                              ),
+                              itemCount: 100,
+                              itemBuilder: (BuildContext context, int itemIndex,
+                                      int pageViewIndex) =>
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.zero,
+                                        width: width / 200,
+                                        height: itemIndex % 5 == 0
+                                            ? height / 30
+                                            : height / 50,
+                                        decoration: BoxDecoration(
+                                            color: ((itemIndex - 2 <=
+                                                        state.yearsOfWorking) &&
+                                                    (itemIndex + 2 >=
+                                                        state.yearsOfWorking))
+                                                ? state.yearsOfWorking ==
+                                                        itemIndex
+                                                    ? theme.canvasColor
+                                                    : theme.focusColor
+                                                : theme.canvasColor
+                                                    .withOpacity(0.3)),
+                                      ),
+                                    ],
+                                  )),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: width / 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text('Рост в см:',
+                                  style: theme.textTheme.bodySmall!.copyWith(
+                                      color: Colors.black.withOpacity(0.5)))
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${state.humanHeight}',
+                                style: theme.textTheme.titleSmall!.copyWith(
+                                    color: Colors.black.withOpacity(0.8),
+                                    fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
+                          Center(
+                            child: Image.asset(
+                              'assets/meme/r.png',
+                              height: height / 50,
+                            ),
+                          ),
+                          CarouselSlider.builder(
+                              carouselController: carouselController,
+                              options: CarouselOptions(
+                                onPageChanged: (index, _) {
+                                  BlocProvider.of<SignUpBloc>(context)
+                                      .add(ChangeHeight(index));
+                                },
+                                height: height / 20,
+                                aspectRatio: 1 / 50,
+                                viewportFraction: 0.025,
+                                initialPage: state.humanHeight,
+                              ),
+                              itemCount: 300,
+                              itemBuilder: (BuildContext context, int itemIndex,
+                                      int pageViewIndex) =>
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.zero,
+                                        width: width / 200,
+                                        height: itemIndex % 5 == 0
+                                            ? height / 30
+                                            : height / 50,
+                                        decoration: BoxDecoration(
+                                            color: ((itemIndex - 2 <=
+                                                        state.humanHeight) &&
+                                                    (itemIndex + 2 >=
+                                                        state.humanHeight))
+                                                ? state.humanHeight == itemIndex
+                                                    ? theme.canvasColor
+                                                    : theme.focusColor
+                                                : theme.canvasColor
+                                                    .withOpacity(0.3)),
+                                      ),
+                                    ],
+                                  )),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
-            ))
-          ]));
-  },
-);
-
+              state.yearsOfWorking >= (state.yearsOld - 5)
+                  ? Container(
+                      height: size.height / 20,
+                      child: Center(
+                          child: Text(
+                        'Странный опыт работы',
+                        style: theme.textTheme.bodyMedium!
+                            .copyWith(color: Colors.red),
+                      )))
+                  : Container(
+                      height: size.height / 20,
+                    ),
+              Center(
+                  child: GestureDetector(
+                onTap: () async {
+                  if(!(state.yearsOfWorking >= (state.yearsOld - 5))){
+                  Navigator.of(context).push(SlideAnimationRoute(
+                      BlocProvider.value(
+                          value: BlocProvider.of<SignUpBloc>(context),
+                          child: EndAuth())));}
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: theme.primaryColor,
+                      borderRadius: BorderRadius.circular(50)),
+                  height: height / 15,
+                  width: width * 0.9,
+                  child: Center(
+                    child: BlocProvider.of<SignUpBloc>(context).state.isLoading
+                        ? Center(
+                            child: SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: CircularProgressIndicator(
+                                  color: theme.textTheme.titleSmall!.color,
+                                )))
+                        : Text(
+                            'Долго еще?',
+                            style: theme.textTheme.titleSmall,
+                          ),
+                  ),
+                ),
+              ))
+            ]));
+      },
+    );
   }
 }

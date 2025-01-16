@@ -59,7 +59,7 @@ class TestStartScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         )),
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(SlideAnimationRoute(
                           BlocProvider.value(

@@ -169,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return ReactiveFormConsumer(
                             builder: (context, form, child) {
                           return Center(
-                              child: InkWell(
+                              child: GestureDetector(
                             onTap: () async {
                                if(form.valid){
                                  BlocProvider.of<SignUpBloc>(context).add(SendSignUpDataEvent());

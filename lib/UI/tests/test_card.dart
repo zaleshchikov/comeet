@@ -20,14 +20,16 @@ class TestCards extends StatelessWidget {
         return Container(
             width: size.width,
             height: size.height * 0.7,
-            child: ListView.builder(
+            child:
+            state.isLoading ? Center(child: CircularProgressIndicator(color: Colors.white,),) : state.testPreviews.isEmpty ? Center(child: Text('Больше тестов не осталось...')) :
+            ListView.builder(
                 itemCount: state.testPreviews.length,
                 itemBuilder: (context, index) => BlocProvider(
                       create: (context) => TestBloc(),
                       child: Builder(builder: (context) {
                         return BlocBuilder<TestBloc, TestState>(
                           builder: (context, stateTest) {
-                            return InkWell(
+                            return GestureDetector(
                               onTap: () {
                                 BlocProvider.of<TestBloc>(context).add(
                                     onGetTest(state.testPreviews[index].id));

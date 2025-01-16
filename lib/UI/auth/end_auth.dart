@@ -101,7 +101,7 @@ class _EmailDataSCreen extends State<EndAuth> {
             BlocBuilder<SignUpBloc, SignUpState>(
               builder: (context, state) {
                 return Center(
-                    child: InkWell(
+                    child: GestureDetector(
                   onTap: () async {
                     BlocProvider.of<SignUpBloc>(context)
                         .add(SendSignUpDataEvent());

@@ -31,6 +31,9 @@ class ProfileEventsScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     ProfileEventBack(),
+                    state.isLoading ? Center(
+                      child: CircularProgressIndicator(color: bottomNavigationColorDark),
+                    ) :
                     state.events.length == 0
                         ? Container(
                       padding: EdgeInsets.all(size.height/50),
@@ -40,11 +43,11 @@ class ProfileEventsScreen extends StatelessWidget {
                         )
                         : ListView(
                             children: List<Widget>.generate(
-                                state.events.length,
+                                state.events.length+1,
                                 (index) => index == 0
                                     ? Container(
                                         padding: EdgeInsets.only(
-                                            top: size.width * 0.2,
+                                            top: size.height * 0.15,
                                             left: size.width * 0.1,
                                             right: size.width * 0.1),
                                         child: ReactiveTextField(
@@ -78,10 +81,10 @@ class ProfileEventsScreen extends StatelessWidget {
                                     : Container(
                                         padding:
                                             EdgeInsets.all(size.width * 0.1),
-                                        child: ProfileEventItem(
-                                            state.events[index].color,
+                                        child: ProfileEventItem(state.events[index-1],
+                                            state.events[index-1].color,
                                             colorPinkTitle,
-                                            state.events[index].name)))),
+                                            state.events[index-1].name)))),
                     Container(
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.only(

@@ -57,9 +57,9 @@ _onUpdateProfile(UpdateProfile event, Emitter<ProfileState> emit) async {
       isLoading: true));
   var response = await http
       .patch(Uri.parse(profile), headers: JsonContentHeaders(token), body: {
-    "name": event.name,
-    "description": event.description,
-    "profession": event.profession,
+    "name": event.name.trim(),
+    "description": event.description.trim(),
+    "profession": event.profession.trim(),
     "image": event.photo,
   });
 

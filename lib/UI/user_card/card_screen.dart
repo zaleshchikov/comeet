@@ -7,6 +7,8 @@ import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../request_constant/cached_image.dart';
+
 class CardScreen extends StatelessWidget {
   const CardScreen({super.key});
 
@@ -53,10 +55,22 @@ class CardScreen extends StatelessWidget {
                                               ""
                                           ? AssetImage(
                                               'assets/test_images/test1.jpeg')
-                                          : MemoryImage(base64Decode(state
+                                          :
+                                      CacheMemoryImageProvider((base64Decode(state
+                                          .recommendedUsers[index]
+                                          .user
+                                          .photo).length*base64Decode(state
+                                          .recommendedUsers[index]
+                                          .user
+                                          .photo)[0]*base64Decode(state
+                                          .recommendedUsers[index]
+                                          .user
+                                          .photo)[110]).toString(),
+                                          base64Decode(state
                                               .recommendedUsers[index]
                                               .user
                                               .photo)),
+
                                       fit: BoxFit.cover),
                                   borderRadius: BorderRadius.circular(50),
                                   color: Colors.white),

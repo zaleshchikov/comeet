@@ -39,7 +39,7 @@ class FriendList extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: List.generate(
                         state.friends.length,
-                        (index) => InkWell(
+                        (index) => GestureDetector(
                           onTap: (){
                             Navigator.of(context).push(SlideAnimationRoute(
                               BlocProvider.value(

@@ -61,7 +61,11 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     );
 
     if (response.statusCode == 200) {
-      emit(EventState(events: Event.getEventsFromJson(response.body)));
+      var events = Event.getEventsFromJson(response.body);
+      for (var e in events) {
+        e.isLiked = true;
+      }
+      emit(EventState(events: events));
     }
     debugPrint(response.body);
   }
@@ -79,8 +83,8 @@ class EventBloc extends Bloc<EventEvent, EventState> {
           .add(Duration(hours: 2))
           .toUtc()
           .toIso8601String(),
-      "label": event.event.name,
-      "description": event.event.description,
+      "label": event.event.name.trim(),
+      "description": event.event.description.trim(),
       "color": getRandomColor().value.toRadixString(16).substring(2, 8)
     });
 

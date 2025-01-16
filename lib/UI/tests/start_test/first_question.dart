@@ -5,6 +5,7 @@ import 'package:comeet/UI/tests/tests_screen.dart';
 import 'package:comeet/bloc/start_test/start_test_bloc.dart';
 import 'package:comeet/bloc/test/test/test_bloc.dart';
 import 'package:comeet/request_constant/colors.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,13 +36,16 @@ class _FirstStartQuestionState extends State<FirstStartQuestion> {
       builder: (context, state) {
         return Scaffold(
             backgroundColor: color,
-            body: Center(
+            body: DoubleBackToCloseApp(snackBar: const SnackBar(
+            content: Text('Нажмите дважды для выхода'),
+        ),
+        child:  Center(
               child: Container(
                 padding: EdgeInsets.all(size.height / 60),
                 constraints: BoxConstraints(
                   minHeight: size.height / 2.3,
                   minWidth: size.width * 0.9,
-                  maxHeight: size.height * 0.95,
+                  maxHeight: size.height * 0.99,
                   maxWidth: size.width * 0.9,
                 ),
                 decoration: BoxDecoration(
@@ -69,7 +73,7 @@ class _FirstStartQuestionState extends State<FirstStartQuestion> {
                           )),
                       Container(
                           constraints: BoxConstraints(
-                              maxHeight: size.height * 0.95,
+                              maxHeight: size.height * 0.99,
                               minHeight: size.height * 0.6,
                               maxWidth: size.width * 0.8,
                               minWidth: size.width * 0.8),
@@ -80,7 +84,7 @@ class _FirstStartQuestionState extends State<FirstStartQuestion> {
                                   (index) => Expanded(
                                     child: Container(
                                       padding: EdgeInsets.only(bottom: size.height/100),
-                                      child: InkWell(
+                                      child: GestureDetector(
                                         onTap: () {
                                           setState(() {
                                             answers.contains(
@@ -92,7 +96,8 @@ class _FirstStartQuestionState extends State<FirstStartQuestion> {
                                           });
                                         },
                                         child: Container(
-                                          height: size.height/20,
+                                          padding: EdgeInsets.all(size.height/200),
+                                          height: widget.answersOptions[index].contains("Возможность профессионального") ? size.height/15 : size.height/18,
                                           width: size.width*0.7,
                                           decoration: BoxDecoration(
                                               color: answers.contains(
@@ -112,26 +117,24 @@ class _FirstStartQuestionState extends State<FirstStartQuestion> {
                                   )),
                             ),
                           )),
-                      InkWell(
+                      GestureDetector(
                         onTap: () {
-
-
-
+                          if(answers.length != 0){
                           BlocProvider.of<StartTestBloc>(context)
                               .add(SetTags(answers));
-                          answers = [];
+                          answers = [];}
                         },
                         child: Container(
                           height: size.height / 15,
                           width: size.width * 0.6,
                           decoration: BoxDecoration(
-                              color: color,
+                              color: answers.length == 0 ? color.withOpacity(0.3) : color,
                               borderRadius: BorderRadius.circular(40),
                               border: Border.all(width: 3)),
                           child: Center(
                             child: state.isLoading
                                 ? CircularProgressIndicator(color: bottomNavigationColorDark)
-                                : Text('Отправить ответы'),
+                                : Text('Отправить ответы', style: theme.textTheme.bodyMedium!.copyWith(color:answers.length == 0 ? theme.textTheme.bodyMedium!.color!.withOpacity(0.3) : theme.textTheme.bodyMedium!.color)),
                           ),
                         ),
                       ),
@@ -139,7 +142,7 @@ class _FirstStartQuestionState extends State<FirstStartQuestion> {
                   ),
                 ),
               ),
-            ));
+            )));
       },
     );
   }

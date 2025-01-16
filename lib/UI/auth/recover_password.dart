@@ -101,7 +101,7 @@ class _RecoverPasswordState extends State<RecoverPassword> {
                             ),
                             ReactiveFormConsumer(
                                 builder: (context, form, child) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   form.markAllAsTouched();
                                   if (form.valid) {

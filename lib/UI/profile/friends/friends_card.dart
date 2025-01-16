@@ -44,7 +44,7 @@ class FriendsCards extends StatelessWidget {
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
                         itemCount: state.cards.length,
-                        itemBuilder: (context, index) => InkWell(
+                        itemBuilder: (context, index) => GestureDetector(
                               onTap: () {
                                 Navigator.of(context).push(SlideAnimationRoute(
                                   BlocProvider.value(
@@ -139,7 +139,7 @@ class FriendsCards extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      InkWell(
+                                      GestureDetector(
                                         onTap: () {
                                           fstate.friends
                                                   .map((e) => e.id)

@@ -29,8 +29,9 @@ class TestPreviewBloc extends Bloc<TestPreviewEvent, TestPreviewState> {
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
-      emit(TestPreviewState(List<TestPreview>.from(
-          json.map((model) => TestPreview.fromJson(model)))));
+      var test = List<TestPreview>.from(
+          json.map((model) => TestPreview.fromJson(model))).where((test) => test.testResult == null).toList();
+      emit(TestPreviewState(test));
     }
 
     emit(TestPreviewState(state.testPreviews, isLoading: false));

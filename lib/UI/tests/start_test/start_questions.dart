@@ -1,6 +1,7 @@
 import 'package:comeet/UI/navigation/botoom_navigation.dart';
 import 'package:comeet/UI/tests/start_test/first_question.dart';
 import 'package:comeet/bloc/start_test/start_test_bloc.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +9,7 @@ import '../../animation/animation_one.dart';
 import '../../profile/profile/profile_screen.dart';
 
 class StartQuestionsScreen extends StatefulWidget {
+  bool tapped = false;
   @override
   State<StartQuestionsScreen> createState() => _StartQuestionsScreenState();
 }
@@ -136,8 +138,11 @@ class _StartQuestionsScreenState extends State<StartQuestionsScreen> {
         child: Builder(builder: (context) {
           return BlocListener<StartTestBloc, StartTestState>(
               listener: (context, state) async {
-                if (state.successRequest) {
+                if (state.successRequest && !widget.tapped) {
                   if (index == 10) {
+                    setState(() {
+                      widget.tapped = true;
+                    });
                     SharedPreferences pref = await SharedPreferences.getInstance();
                     pref.setBool('startTest', true);
                     showDialog(

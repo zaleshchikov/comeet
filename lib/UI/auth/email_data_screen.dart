@@ -164,7 +164,7 @@ class _EmailDataSCreen extends State<EmailDataScreen> {
                   ReactiveFormConsumer(
                       builder: (context, form, child) {
                     return Center(
-                        child: InkWell(
+                        child: GestureDetector(
                       onTap: () async {
                         if (form.valid) {
                           Navigator.of(context)

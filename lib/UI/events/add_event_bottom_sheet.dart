@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:comeet/bloc/event/event_bloc.dart';
+import 'package:comeet/request_constant/cached_image.dart';
 import 'package:comeet/request_constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,7 +90,7 @@ class _AddEventBottomSheetState extends State<AddEventBottomSheet> {
                                 ],
                               ),
                             ),
-                            InkWell(
+                            GestureDetector(
                               onTap: () async {
                                 ImagePicker picker = ImagePicker();
                                 XFile? image = await picker.pickImage(
@@ -111,7 +112,7 @@ class _AddEventBottomSheetState extends State<AddEventBottomSheet> {
                                         image: imageBytes == null
                                             ? AssetImage(
                                                 'assets/icons/add_event.png')
-                                            : MemoryImage(
+                                            : CacheMemoryImageProvider((Uint8List.fromList(imageBytes).length*Uint8List.fromList(imageBytes)[0]*Uint8List.fromList(imageBytes)[110]).toString(),
                                                 Uint8List.fromList(imageBytes)),
                                         fit: BoxFit.cover)),
                               ),
@@ -201,7 +202,7 @@ class _AddEventBottomSheetState extends State<AddEventBottomSheet> {
                                         DateTime(event.dateStart.year,
                                                 event.dateStart.month + 1, 0)
                                             .day,
-                                        (int index) => InkWell(
+                                        (int index) => GestureDetector(
                                               onTap: () {
                                                 event.dateStart = event
                                                     .dateStart
@@ -335,7 +336,7 @@ class _AddEventBottomSheetState extends State<AddEventBottomSheet> {
                             ),
                             ReactiveFormConsumer(
                                 builder: (context, form, child) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
                                   if(form.control('name').valid) {
                                     event.name = form

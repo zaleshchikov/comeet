@@ -99,7 +99,7 @@ class _SlideScreen1State extends State<SlideScreen> {
               ),
             ),
           ),
-          InkWell(
+          GestureDetector(
               onTap: () async {
                 if (_index == 2) {
                   Navigator.of(context).push(SlideAnimationRoute(StartScreen(

@@ -48,29 +48,6 @@ class EventsScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          width: size.width * 0.9,
-                          height: size.height / 15,
-                          child: ReactiveTextField(
-                            style: theme.textTheme.bodySmall,
-                            cursorColor: theme.textTheme.bodySmall!.color,
-                            decoration: InputDecoration(
-                                suffixIcon:
-                                    Icon(Icons.search, size: size.height / 20),
-                                filled: true,
-                                fillColor: Colors.white,
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Colors.black),
-                                    borderRadius: BorderRadius.circular(40)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Colors.black),
-                                    borderRadius: BorderRadius.circular(40)),
-                                focusColor: Colors.black),
-                            formControlName: 'text',
-                          ),
-                        ),
                         BlocBuilder<EventBloc, EventState>(
                             builder: (context, state) {
                           return state.isLoading
@@ -99,7 +76,7 @@ class EventsScreen extends StatelessWidget {
                                       )))
                                   : EventCards();
                         }),
-                        InkWell(
+                        GestureDetector(
                           onTap: () {
                             showBottomSheet(
                               enableDrag: true,

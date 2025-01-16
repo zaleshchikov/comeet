@@ -95,7 +95,7 @@ class _EmailDataSCreen extends State<MemeScreen> {
                   ],
                 ),
           Center(
-              child: InkWell(
+              child: GestureDetector(
                 onTap: () async {
                   debugPrint(BlocProvider.of<SignUpBloc>(context).state.email);
                   debugPrint(BlocProvider.of<SignUpBloc>(context).state.password);

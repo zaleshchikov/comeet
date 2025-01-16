@@ -64,7 +64,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       if (widget.body.toString() == 'ProfileScreen') {
         _selectedIndex = 3;
       }
-
     });
   }
 
@@ -77,18 +76,24 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     var size = MediaQuery.of(context).size;
 
     Widget BottomBarItem(int index) {
-      return InkWell(
+      return GestureDetector(
           onTap: () => _onItemTapped(index),
           child: Container(
-              height: size.height / 25,
-              width: size.height / 25,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 2, color: bottomColor),
-                  color: (_selectedIndex == index) ||
-                          (index == 3 && (_selectedIndex == 4))
-                      ? bottomColor
-                      : Colors.transparent)));
+            padding: EdgeInsets.all(size.height/100),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: (_selectedIndex == index) ||
+                  (index == 3 && (_selectedIndex == 4))
+                  ? bottomColor
+                  : Colors.transparent),
+
+            ),
+              height: size.height / 15,
+              width: size.height / 15,
+              child: ImageIcon(AssetImage('assets/icons/b$index.png'), color: (_selectedIndex == index) ||
+                  (index == 3 && (_selectedIndex == 4))
+                  ? bottomColor
+                  : bottomColor)));
     }
 
     return Scaffold(

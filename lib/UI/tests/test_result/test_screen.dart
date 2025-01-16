@@ -40,7 +40,7 @@ class _TestResultScreenState extends State<TestResultScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  InkWell(
+                  GestureDetector(
                     onTap: (){
                       Navigator.of(context).push(SlideAnimationRoute(BottomNavigationScreen(TestsScreen())));
             },

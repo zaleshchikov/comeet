@@ -8,10 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class QuestionScreen extends StatelessWidget {
+class QuestionScreen extends StatefulWidget {
   int currentQuestionIndex;
 
   QuestionScreen({this.currentQuestionIndex = 0});
+
+  @override
+  State<QuestionScreen> createState() => _QuestionScreenState();
+}
+
+class _QuestionScreenState extends State<QuestionScreen> {
+  bool _isButtonTapped = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,7 @@ class QuestionScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Text(
-                            state.test!.questions[currentQuestionIndex].text,
+                            state.test!.questions[widget.currentQuestionIndex].text,
                             style: theme.textTheme.bodyLarge!.copyWith(
                                 color: Colors.black,
                                 fontFamily:
@@ -67,22 +74,22 @@ class QuestionScreen extends StatelessWidget {
                           child: IntrinsicHeight(
                             child: Column(
                                 children: List<Widget>.generate(
-                                    state.test!.questions[currentQuestionIndex]
+                                    state.test!.questions[widget.currentQuestionIndex]
                                         .answerOption.length,
                                     (index) => Expanded(
                                           child: Container(
                                             padding: EdgeInsets.all(
                                                 size.height / 100),
-                                            child: InkWell(
+                                            child: GestureDetector(
                                               onTap: () {
                                                 BlocProvider.of<TestBloc>(
                                                         context1)
                                                     .add(AddAnswer(
-                                                        currentQuestionIndex,
+                                                        widget.currentQuestionIndex,
                                                         state
                                                             .test!
                                                             .questions[
-                                                                currentQuestionIndex]
+                                                                widget.currentQuestionIndex]
                                                             .answerOption[index]));
                                               },
                                               child: Container(
@@ -92,14 +99,14 @@ class QuestionScreen extends StatelessWidget {
                                                     color: ((state.answers!
                                                                     .length -
                                                                 1) <
-                                                            currentQuestionIndex)
+                                                            widget.currentQuestionIndex)
                                                         ? Colors.white
                                                         : (state.answers![
-                                                                    currentQuestionIndex] ==
+                                                                    widget.currentQuestionIndex] ==
                                                                 state
                                                                         .test!
                                                                         .questions[
-                                                                            currentQuestionIndex]
+                                                                            widget.currentQuestionIndex]
                                                                         .answerOption[
                                                                     index])
                                                             ? color
@@ -113,7 +120,7 @@ class QuestionScreen extends StatelessWidget {
                                                   state
                                                       .test!
                                                       .questions[
-                                                          currentQuestionIndex]
+                                                          widget.currentQuestionIndex]
                                                       .answerOption[index]
                                                       .text,
                                                   style: theme
@@ -130,19 +137,19 @@ class QuestionScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
-                                  if (currentQuestionIndex != 0) {
+                                  if (widget.currentQuestionIndex != 0) {
                                     Navigator.of(context1).pop();
                                   }
                                 },
                                 child: Icon(Icons.arrow_back_ios,
-                                    color: currentQuestionIndex == 0
+                                    color: widget.currentQuestionIndex == 0
                                         ? profileBackBottomColor
                                         : Colors.black,
                                     size: size.height / 20),
                               ),
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
                                   Navigator.of(context1).pushAndRemoveUntil(
                                       SlideAnimationRoute(
@@ -155,11 +162,11 @@ class QuestionScreen extends StatelessWidget {
                                       style: theme.textTheme.bodyLarge),
                                 ),
                               ),
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
-                                  if (currentQuestionIndex ==
+                                  if (widget.currentQuestionIndex ==
                                           (state.test!.questions!.length - 1) &&
-                                      (currentQuestionIndex + 1) ==
+                                      (widget.currentQuestionIndex + 1) ==
                                           (state.answers!.length)) {
                                     showDialog(
                                         context: context1,
@@ -197,7 +204,7 @@ class QuestionScreen extends StatelessWidget {
                                                         20,
                                                     actions: [
                                                       Center(
-                                                        child: InkWell(
+                                                        child: GestureDetector(
                                                             onTap: () {
                                                               Navigator.of(
                                                                       context1)
@@ -226,15 +233,21 @@ class QuestionScreen extends StatelessWidget {
                                                                         "Сверить ответы")))),
                                                       ),
                                                       Center(
-                                                        child: InkWell(
+                                                        child: GestureDetector(
                                                             onTap: () async {
-                                                              BlocProvider.of<
-                                                                          TestBloc>(
-                                                                      context1)
-                                                                  .add(
-                                                                      UpdateTestResult());
-                                                              BlocProvider.of<TestBloc>(context).add(SendTestResult());
-                                                            },
+                                                  if (!_isButtonTapped) {
+                                                    setState(() {
+                                                      _isButtonTapped == true;
+                                                    });
+                                                    BlocProvider.of<
+                                                        TestBloc>(
+                                                        context1)
+                                                        .add(
+                                                        UpdateTestResult());
+                                                    BlocProvider.of<TestBloc>(
+                                                        context).add(
+                                                        SendTestResult());
+                                                  }},
                                                             child: Container(
                                                                 height: size.height /
                                                                     15,
@@ -263,7 +276,7 @@ class QuestionScreen extends StatelessWidget {
                                               ),
                                             )));
                                   } else {
-                                    if (currentQuestionIndex !=
+                                    if (widget.currentQuestionIndex !=
                                         (state.answers!.length)) {
                                       Navigator.of(context1).push(
                                           SlideAnimationRoute(
@@ -272,14 +285,14 @@ class QuestionScreen extends StatelessWidget {
                                             BlocProvider.of<TestBloc>(context1),
                                         child: QuestionScreen(
                                           currentQuestionIndex:
-                                              currentQuestionIndex + 1,
+                                              widget.currentQuestionIndex + 1,
                                         ),
                                       )));
                                     }
                                   }
                                 },
                                 child: Icon(Icons.arrow_forward_ios,
-                                    color: currentQuestionIndex ==
+                                    color: widget.currentQuestionIndex ==
                                             (state.answers!.length)
                                         ? profileBackBottomColor
                                         : Colors.black,
